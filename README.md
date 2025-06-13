@@ -25,19 +25,19 @@ This project is a fully functional real-time **English ⇄ Japanese translation 
 root/
 │
 ├── Frontend/
-│   ├── v1.html         # Initial basic UI version
-│   ├── v2.html         # Added speech input
-│   ├── v3.html         # Improved UI design
-│   ├── v4.html         # Added TTS functionality
-│   ├── v5.html         # Integrated Furigana display
+│   ├── index.html         # Initial basic UI version
+│   ├── index2.html         # Added speech input
+│   ├── index3.html         # Improved UI design
+│   ├── index4.html         # Added TTS functionality
+│   ├── index5.html         # Integrated Furigana display
 │   ├── main.html       # Final complete version. Main file to run
 │
 ├── Backend/
-│   ├── v1.py           # Initial Flask API with basic translation
-│   ├── v2.py           # Added speech-to-text backend
-│   ├── v3.py           # Integrated mBART50 model
-│   ├── v4.py           # Added Furigana processing using Fugashi
-│   ├── v5.py           # Improved error handling and optimizations
+│   ├── app.py           # Initial Flask API with basic translation
+│   ├── app2.py           # Added speech-to-text backend
+│   ├── app3.py           # Integrated mBART50 model
+│   ├── app4.py           # Added Furigana processing using Fugashi
+│   ├── app5.py           # Improved error handling and optimizations
 │   ├── main.py         # Politeness and natural language improvements. Main file to run
 │
 ├── requirements.txt    # Python dependencies
