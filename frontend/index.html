@@ -1,0 +1,475 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English to Japanese Translator</title>
+  <style>
+    /* Reset some basic styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #0d3b66;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #0d3b66;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"]:focus {
+      border-color: #f95738;
+      box-shadow: 0 0 8px #f95738;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #f95738;
+      color: white;
+      border: none;
+      padding: 15px 0;
+      width: 100%;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 8px 15px rgba(249, 87, 56, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #d9432c;
+      box-shadow: 0 10px 20px rgba(217, 67, 44, 0.6);
+    }
+
+    #result {
+      margin-top: 30px;
+      background-color: #eaf4fc;
+      border-radius: 15px;
+      padding: 25px 20px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+      font-size: 1.3rem;
+      color: #073763;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
+      input[type="text"], button {
+        font-size: 1rem;
+      }
+      #result {
+        font-size: 1.1rem;
+      }
+    }
+  </style> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English ⇄ Japanese Translator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      min-height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      padding: 20px; color: #333;
+    }
+    .container {
+      background: white; padding: 40px 30px;
+      border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      width: 100%; max-width: 900px;
+    }
+    h1 { font-weight: 700; margin-bottom: 30px; color: #0d3b66; text-align: center; }
+    .input-group {
+      display: flex; justify-content: center; align-items: center;
+      gap: 15px; flex-wrap: wrap; margin-bottom: 25px;
+    }
+    input[type="text"] {
+      padding: 15px 20px; border: 2px solid #0d3b66; border-radius: 30px;
+      font-size: 1.1rem; outline: none; flex: 1 1 300px;
+    }
+    input[type="text"]:focus { border-color: #f95738; box-shadow: 0 0 8px #f95738; }
+    button {
+      background-color: #f95738; color: white; border: none;
+      padding: 15px 30px; font-size: 1rem; border-radius: 30px;
+      cursor: pointer; font-weight: 600; box-shadow: 0 8px 15px rgba(249, 87, 56, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover { background-color: #d43e1f; box-shadow: 0 10px 20px rgba(249, 87, 56, 0.5); }
+    #translationContainer { margin-top: 30px; }
+    .translation-section {
+      margin-bottom: 20px; padding: 20px; background-color: #eef6fb;
+      border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .translation-label { font-weight: bold; margin-bottom: 8px; color: #0d3b66; }
+    .translation-text { font-size: 1.2rem; line-height: 1.5; word-break: break-word; }
+  </style>
+</head>
+<body>
+  <!-- <h1>English to Japanese Translator</h1>
+  <input type="text" id="inputText" placeholder="Enter an English sentence..." />
+  <button onclick="translateText()">Translate</button>
+  <button id="micBtn" title="Click and speak">🎤 Speak</button>
+<div id="translationBox" style="
+  margin-top: 40px;
+  padding: 20px;
+  width: 100%;
+  background: #f0f4f8;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #0d3b66;
+  text-align: center;
+  display: none;
+"> -->
+<div class="container">
+    <h1>English ⇄ Japanese Translator (Speech Enabled)</h1>
+    <div class="input-group">
+      <input type="text" id="inputText" placeholder="Enter an English sentence..." />
+      <button onclick="translateText()">Translate</button>
+      <button id="micBtn">🎙️ Speak</button>
+      <button id="speakBtn">🎤 Listen</button>
+    </div>
+
+    <div id="translationContainer">
+      <div class="translation-section">
+        <span class="translation-label">Translation:</span>
+        <div id="outputText" class="translation-text">-</div>
+      </div>
+      <div class="translation-section">
+        <span class="translation-label">Furigana:</span>
+        <div id="furiganaText" class="translation-text">-</div>
+      </div>
+    </div>
+  </div>
+  <!-- Japanese: <span id="jpResult">-</span>
+</div>
+
+  <div id="result">
+    <strong>Japanese:</strong> <span id="translationOutput">-</span>
+  </div> -->
+
+<script>
+  const inputText = document.getElementById('inputText');
+  const translationOutput = document.getElementById('result');
+  const micBtn = document.getElementById('micBtn');
+
+  // Initialize Speech Recognition
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+
+  if (recognition) {
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    micBtn.onclick = () => {
+      if (micBtn.classList.contains('listening')) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    };
+
+    recognition.onstart = () => {
+      micBtn.classList.add('listening');
+      micBtn.textContent = '🎙️ Listening... Click to stop';
+    };
+
+    recognition.onend = () => {
+      micBtn.classList.remove('listening');
+      micBtn.textContent = '🎤 Speak';
+    };
+
+    recognition.onerror = (event) => {
+      micBtn.classList.remove('listening');
+      micBtn.textContent = '🎤 Speak';
+      alert('Speech recognition error: ' + event.error);
+    };
+
+    recognition.onresult = (event) => {
+      const spokenText = event.results[0][0].transcript;
+      inputText.value = spokenText;
+      translateText(spokenText);
+    };
+  } else {
+    micBtn.disabled = true;
+    micBtn.textContent = '🎤 Not supported in this browser';
+  }
+
+  // Translation and voice synthesis
+async function translateText(input) {
+  if (!input) input = inputText.value.trim();
+  if (!input) {
+    document.getElementById('outputText').textContent = "Please enter or speak something!";
+    return;
+  }
+
+  document.getElementById('outputText').textContent = "Translating...";
+  document.getElementById('furiganaText').textContent = "-";
+
+  try {
+    const response = await fetch("http://127.0.0.1:5000/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phrase: input })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      document.getElementById('outputText').textContent = data.translation;
+      document.getElementById('furiganaText').textContent = data.furigana;
+      speakText(data.translation);
+    } else {
+      document.getElementById('outputText').textContent = "Error: " + (data.error || "Unknown error");
+    }
+  } catch (error) {
+    document.getElementById('outputText').textContent = "Error connecting to server.";
+  }
+}
+
+
+  // Voice synthesis
+  function speakText(text) {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = speechSynthesis.getVoices();
+
+      const japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.name.includes('Google 日本語'));
+      if (japaneseVoice) {
+        utterance.voice = japaneseVoice;
+      }
+
+      utterance.lang = 'ja-JP';
+      utterance.rate = 0.9;
+      speechSynthesis.speak(utterance);
+    }
+  }
+
+  // Ensure voices are loaded
+  window.speechSynthesis.onvoiceschanged = () => {
+    console.log("Voices loaded");
+  };
+</script>
+
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English to Japanese Translator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #0d3b66;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"] {
+      padding: 15px 20px;
+      border: 2px solid #0d3b66;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      outline: none;
+      flex: 1 1 300px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #f95738;
+      box-shadow: 0 0 8px #f95738;
+    }
+
+    button {
+      background-color: #f95738;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 8px 15px rgba(249, 87, 56, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e44b2c;
+      box-shadow: 0 10px 20px rgba(249, 87, 56, 0.5);
+    }
+
+    #outputBox {
+      margin-top: 30px;
+      background-color: #f0f8ff;
+      padding: 20px;
+      border-radius: 15px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #0d3b66;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>English to <br> Japanese Translator</h1>
+
+    <div class="input-group">
+      <input type="text" id="inputText" placeholder="Enter an English sentence..." />
+      <button onclick="translateText()">Translate</button>
+      <button onclick="speakJapanese()">🎤 Speak</button>
+    </div>
+
+    <div id="outputBox">Japanese: <span id="outputText">-</span></div>
+  </div>
+
+  <script>
+    let currentTranslation = '';
+
+    function translateText() {
+      const input = document.getElementById('inputText').value.trim();
+      if (!input) return;
+
+      fetch('http://localhost:5000/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phrase: input })
+      })
+      .then(res => res.json())
+      .then(data => {
+        currentTranslation = data.translation || '';
+        document.getElementById('outputText').textContent = currentTranslation || '-';
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        document.getElementById('outputText').textContent = 'Translation failed.';
+      });
+    }
+
+    // function speakJapanese() {
+    //   if (!currentTranslation) return;
+
+    //   const utterance = new SpeechSynthesisUtterance(currentTranslation);
+    //   utterance.lang = 'ja-JP';
+
+    //   const voices = window.speechSynthesis.getVoices();
+    //   const japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.name.includes('Google 日本語'));
+
+    //   if (japaneseVoice) utterance.voice = japaneseVoice;
+
+    //   window.speechSynthesis.speak(utterance);
+    // }
+    // Voice synthesis
+  function speakText(text) {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = speechSynthesis.getVoices();
+
+      const japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.name.includes('Google 日本語'));
+      if (japaneseVoice) {
+        utterance.voice = japaneseVoice;
+      }
+
+      utterance.lang = 'ja-JP';
+      utterance.rate = 0.9;
+      speechSynthesis.speak(utterance);
+    }
+  }
+
+  // Ensure voices are loaded
+  window.speechSynthesis.onvoiceschanged = () => {
+    console.log("Voices loaded");
+  };
+    // Fix voice list delay in some browsers
+    window.speechSynthesis.onvoiceschanged = () => {
+      // triggers loading voices on first use
+    };
+  </script>
+</body>
+</html> -->

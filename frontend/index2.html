@@ -1,0 +1,358 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English to Japanese Translator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #0d3b66;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"] {
+      padding: 15px 20px;
+      border: 2px solid #0d3b66;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      outline: none;
+      flex: 1 1 300px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #f95738;
+      box-shadow: 0 0 8px #f95738;
+    }
+
+    button {
+      background-color: #f95738;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 8px 15px rgba(249, 87, 56, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #d43e1f;
+      box-shadow: 0 10px 20px rgba(249, 87, 56, 0.5);
+    }
+
+    #translationBox {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #eef6fb;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      color: #0d3b66;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>English to Japanese Translator</h1>
+    <div class="input-group">
+      <input type="text" id="inputText" placeholder="Enter an English sentence..." />
+      <button id="translateBtn">Translate</button>
+      <button id="speakBtn">🎤 Speak</button>
+    </div>
+    <div id="translationBox">Japanese: <span id="outputText">-</span></div>
+  </div>
+
+  <script>
+    let latestTranslation = "";
+
+    document.getElementById("translateBtn").addEventListener("click", async () => {
+      const input = document.getElementById("inputText").value.trim();
+      if (!input) return alert("Please enter a sentence.");
+
+      try {
+        const response = await fetch("http://localhost:5000/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phrase: input })
+        });
+
+        const data = await response.json();
+        if (data.translation) {
+          document.getElementById("outputText").innerText = data.translation;
+          latestTranslation = data.translation;
+        } else {
+          document.getElementById("outputText").innerText = "-";
+          latestTranslation = "";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to translate. Check your backend.");
+      }
+    });
+
+    document.getElementById('speakBtn').addEventListener('click', () => {
+  const translatedText = document.getElementById('translationOutput').textContent.trim();
+
+  if (translatedText) {
+    const utterance = new SpeechSynthesisUtterance(translatedText);
+    
+    // Use a Japanese voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const japaneseVoice = voices.find(v => v.lang === 'ja-JP' || v.name.includes('Google 日本語'));
+
+    if (japaneseVoice) {
+      utterance.voice = japaneseVoice;
+    }
+
+    utterance.lang = 'ja-JP';
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert("No translation to speak.");
+  }
+});
+
+
+    // Ensure voices are loaded
+    window.speechSynthesis.onvoiceschanged = () => {
+      speechSynthesis.getVoices();
+    };
+  </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English to Japanese Translator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 900px;
+    }
+
+    h1 {
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #0d3b66;
+      text-align: center;
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"] {
+      padding: 15px 20px;
+      border: 2px solid #0d3b66;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      outline: none;
+      flex: 1 1 300px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #f95738;
+      box-shadow: 0 0 8px #f95738;
+    }
+
+    button {
+      background-color: #f95738;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 8px 15px rgba(249, 87, 56, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #d43e1f;
+      box-shadow: 0 10px 20px rgba(249, 87, 56, 0.5);
+    }
+
+    #translationContainer {
+      margin-top: 30px;
+    }
+
+    #translationBox {
+      padding: 20px;
+      background-color: #eef6fb;
+      border-radius: 10px;
+      color: #0d3b66;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      min-height: 60px;
+      max-height: 400px;
+      overflow-y: auto;
+      word-break: break-word;
+    }
+
+    #outputText {
+      font-size: 1.3rem;
+      line-height: 1.5;
+      white-space: normal;
+    }
+
+    .translation-label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>English to Japanese Translator</h1>
+    <div class="input-group">
+      <input type="text" id="inputText" placeholder="Enter an English sentence..." />
+      <button id="translateBtn">Translate</button>
+      <button id="speakBtn">🎤 Listen</button>
+    </div>
+    <div id="translationContainer">
+      <span class="translation-label">Japanese Translation:</span>
+      <div id="translationBox">
+        <div id="outputText">-</div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <script>
+    let latestTranslation = "";
+
+    document.getElementById("translateBtn").addEventListener("click", async () => {
+      const input = document.getElementById("inputText").value.trim();
+      if (!input) return alert("Please enter a sentence.");
+
+      try {
+        const response = await fetch("http://localhost:5000/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phrase: input })
+        });
+
+        const data = await response.json();
+        if (data.translation) {
+          document.getElementById("outputText").textContent = data.translation;
+          latestTranslation = data.translation;
+          
+          // Scroll to bottom to show latest translation
+          const box = document.getElementById("translationBox");
+          box.scrollTop = box.scrollHeight;
+        } else {
+          document.getElementById("outputText").textContent = "No translation received";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("outputText").textContent = "Error connecting to translation service";
+      }
+    });
+
+    document.getElementById('speakBtn').addEventListener('click', () => {
+      if (!latestTranslation) return alert("Please translate something first.");
+      
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(latestTranslation);
+      utterance.lang = 'ja-JP';
+      
+      // Try to find a Japanese voice
+      const voices = window.speechSynthesis.getVoices();
+      const japaneseVoice = voices.find(voice => 
+        voice.lang === 'ja-JP' || 
+        voice.lang.startsWith('ja') || 
+        voice.name.includes('Japanese')
+      );
+      
+      if (japaneseVoice) {
+        utterance.voice = japaneseVoice;
+      }
+      
+      window.speechSynthesis.speak(utterance);
+    });
+
+    // Load voices when available
+    function loadVoices() {
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = () => {
+          console.log("Voices loaded:", speechSynthesis.getVoices());
+        };
+      }
+    }
+    loadVoices();
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+flask
+flask_cors
+transformers==4.40.0
+torch==2.2.0
+fugashi
+gtts
+jaconv
+ffmpeg-python
+soundfile

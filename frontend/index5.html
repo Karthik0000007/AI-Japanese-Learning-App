@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English ⇄ Japanese Translator (Speech Enabled)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      min-height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      padding: 20px; color: #333;
+    }
+    .container {
+      background: white; padding: 40px 30px;
+      border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      width: 100%; max-width: 900px;
+    }
+    h1 { font-weight: 700; margin-bottom: 30px; color: #0d3b66; text-align: center; }
+    .input-group {
+      display: flex; justify-content: center; align-items: center;
+      gap: 15px; flex-wrap: wrap; margin-bottom: 25px;
+    }
+    input[type="text"] {
+      padding: 15px 20px; border: 2px solid #0d3b66; border-radius: 30px;
+      font-size: 1.1rem; outline: none; flex: 1 1 300px;
+    }
+    button {
+      background-color: #f95738; color: white; border: none;
+      padding: 15px 30px; font-size: 1rem; border-radius: 30px;
+      cursor: pointer; font-weight: 600; box-shadow: 0 8px 15px rgba(249, 87, 56, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover { background-color: #d43e1f; box-shadow: 0 10px 20px rgba(249, 87, 56, 0.5); }
+    .translation-section {
+      margin-bottom: 20px; padding: 20px; background-color: #eef6fb;
+      border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .translation-label { font-weight: bold; margin-bottom: 8px; color: #0d3b66; }
+    .translation-text { font-size: 1.2rem; line-height: 1.5; word-break: break-word; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>English ⇄ Japanese Translator (Speech Enabled)</h1>
+    <div class="input-group">
+      <input type="text" id="inputText" placeholder="Enter an English sentence..." />
+      <button onclick="translateText()">Translate</button>
+      <button id="micBtn">🎙️ Speak</button>
+      <button id="ttsBtn">🔊 Listen</button>
+    </div>
+
+    <div id="translationContainer">
+      <div class="translation-section">
+        <span class="translation-label">Translation:</span>
+        <div id="outputText" class="translation-text">-</div>
+      </div>
+      <div class="translation-section">
+        <span class="translation-label">Furigana:</span>
+        <div id="furiganaText" class="translation-text">-</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+let latestTranslation = "";
+
+async function translateText() {
+  const input = document.getElementById("inputText").value.trim();
+  if (!input) {
+    alert("Please enter a sentence.");
+    return;
+  }
+  try {
+    const response = await fetch("http://localhost:5000/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phrase: input })
+    });
+
+    const data = await response.json();
+    if (data.translation) {
+      document.getElementById("outputText").textContent = data.translation;
+      document.getElementById("furiganaText").textContent = data.furigana || "-";
+      latestTranslation = data.translation;
+    } else {
+      document.getElementById("outputText").textContent = "No translation received";
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    alert("Error during translation.");
+  }
+}
+
+// Speech to text functionality
+let mediaRecorder;
+let audioChunks = [];
+
+document.getElementById("micBtn").addEventListener("click", async () => {
+  if (!navigator.mediaDevices) {
+    alert("Speech recording not supported.");
+    return;
+  }
+
+  audioChunks = []; // reset before each recording
+
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  mediaRecorder = new MediaRecorder(stream);
+  mediaRecorder.start();
+  alert("Recording... (Auto stop after 5s)");
+
+  mediaRecorder.ondataavailable = e => {
+    audioChunks.push(e.data);
+  };
+
+  mediaRecorder.onstop = async () => {
+    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+    const formData = new FormData();
+    formData.append("audio", audioBlob, "audio.webm");
+
+    const response = await fetch("http://localhost:5000/speech_to_text", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    document.getElementById("inputText").value = data.text;
+    translateText();
+  };
+
+  setTimeout(() => {
+    mediaRecorder.stop();
+  }, 5000);
+});
+
+// Text-to-speech (optional)
+document.getElementById("ttsBtn").addEventListener("click", () => {
+  if (!latestTranslation) {
+    alert("Translate first!");
+    return;
+  }
+  const utterance = new SpeechSynthesisUtterance(latestTranslation);
+  utterance.lang = "ja-JP";
+  speechSynthesis.speak(utterance);
+});
+</script>
+
+</body>
+</html>
