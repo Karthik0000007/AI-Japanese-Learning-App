@@ -7,17 +7,27 @@
 
 This project is a fully functional real-time **English ⇄ Japanese translation tool**, integrating:
 
-- ✨ Speech Recognition (STT)
-- ✨ Text Translation using mBART50 (Hugging Face Transformers)
-- ✨ Furigana (ruby readings) extraction using MeCab + Fugashi
-- ✨ Text-to-Speech (TTS) for Japanese output using gTTS
-- ✨ Beautiful Frontend with speech-enabled UI
+- 🔁 English ⇄ Japanese translation (with polite/casual/honorific tone control)
+- 💬 Furigana (ruby) annotations for kanji
+- 🎙️ Text-to-Speech using gTTS
+- 🧠 **Grammar/Kanji/JLPT explanation using LLaMA3 via Ollama**
+- 🎤 Speech-to-text using browser APIs
 
 > The project evolved through multiple versions — each iteration improving the features and capabilities.
 >  
 > You’ll find multiple files showing the step-by-step growth of both the frontend and backend.
 
 ---
+## 🤖 LLaMA3 + Ollama Integration
+
+This project uses the [Ollama](https://ollama.com) runtime to locally run the [Meta LLaMA3](https://ai.meta.com/llama/) model. The assistant is accessed via an endpoint `/japanese_helper`, which returns:
+- Vocabulary breakdown with furigana and meanings
+- Grammar explanations
+- JLPT levels
+- Kanji readings and meanings
+
+---
+> 💡 This allows offline, secure, and highly contextual Japanese language tutoring directly from an LLM.
 
 ## 📂 Project Structure
 
@@ -71,6 +81,13 @@ venv\Scripts\activate     # (Windows)
 
 - Install requirements:
 pip install -r requirements.txt
+
+#### Run the LLaMA3 Model
+Make sure you have [Ollama installed](https://ollama.com/download):
+
+```bash
+ollama run llama3
+```
 
 - 2️⃣ Run the Backend
 From Backend/ directory:
