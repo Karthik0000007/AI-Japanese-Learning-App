@@ -40,7 +40,8 @@ root/
 │   ├── index3.html         # Improved UI design
 │   ├── index4.html         # Added TTS functionality
 │   ├── index5.html         # Integrated Furigana display
-│   ├── main.html       # Final complete version. Main file to run
+│   ├── main.html           
+|   ├── llama.html       # Final complete version. Main file to run
 │
 ├── Backend/
 │   ├── app.py           # Initial Flask API with basic translation
@@ -48,7 +49,8 @@ root/
 │   ├── app3.py           # Integrated mBART50 model
 │   ├── app4.py           # Added Furigana processing using Fugashi
 │   ├── app5.py           # Improved error handling and optimizations
-│   ├── main.py         # Politeness and natural language improvements. Main file to run
+│   ├── main.py
+|   ├── llama.py      # Added Meta LLaMA3 via Ollama for JLPT grammar assistant. Main file to run
 │
 ├── requirements.txt    # Python dependencies
 └── README.md           # (This file)
@@ -91,10 +93,10 @@ ollama run llama3
 
 - 2️⃣ Run the Backend
 From Backend/ directory:
-python main.py
+python llama.py
 
 - 3️⃣ Run the Frontend
-Simply open Frontend/main.html in your browser.
+Simply open Frontend/llama.html in your browser.
 
 - ✅ Both frontend & backend will communicate via REST API locally.
 
