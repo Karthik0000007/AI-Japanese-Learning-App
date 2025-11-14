@@ -1,0 +1,38 @@
+# Python virtual environments
+venv/
+env/
+*.egg-info/
+__pycache__/
+*.py[cod]
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# System junk
+.DS_Store
+Thumbs.db
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Data & models (if temporary)
+*.csv
+*.xlsx
+*.h5
+*.pkl
+*.npz
+*.json
+datasets/
+models/
+
+# Secret config
+.env
+*.env
+
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# Useless files
+main.py

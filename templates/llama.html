@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English ⇄ Japanese Translator + JLPT Helper</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      min-height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      padding: 20px; color: #333;
+    }
+    .container {
+      background: white; padding: 40px 30px;
+      border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      width: 100%; max-width: 900px;
+    }
+    h1 { font-weight: 700; margin-bottom: 30px; color: #0d3b66; text-align: center; }
+    .input-group {
+      display: flex; justify-content: center; align-items: center;
+      gap: 15px; flex-wrap: wrap; margin-bottom: 25px;
+    }
+    input[type="text"] {
+      padding: 15px 20px; border: 2px solid #0d3b66; border-radius: 30px;
+      font-size: 1.1rem; outline: none; flex: 1 1 300px;
+    }
+    input[type="text"]:focus { border-color: #f95738; box-shadow: 0 0 8px #f95738; }
+    button {
+      background-color: #f95738; color: white; border: none;
+      padding: 15px 30px; font-size: 1rem; border-radius: 30px;
+      cursor: pointer; font-weight: 600; box-shadow: 0 8px 15px rgba(249, 87, 56, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover { background-color: #d43e1f; box-shadow: 0 10px 20px rgba(249, 87, 56, 0.5); }
+    .translation-section {
+      margin-bottom: 20px; padding: 20px; background-color: #eef6fb;
+      border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .translation-label { font-weight: bold; margin-bottom: 8px; color: #0d3b66; }
+    .translation-text { font-size: 1.2rem; line-height: 1.5; word-break: break-word; white-space: pre-line; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>English ⇄ Japanese Translator + JLPT Helper</h1>
+
+    <div class="input-group">
+      <input type="text" id="inputText" placeholder="Enter a sentence..." />
+      <button id="translateBtn">Translate</button>
+      <button id="micBtn">🎙️ Speak</button>
+      <button id="listenBtn">🎤 Listen</button>
+    </div>
+
+    <div id="translationContainer">
+      <div class="translation-section">
+        <span class="translation-label">Translation:</span>
+        <div id="outputText" class="translation-text">-</div>
+      </div>
+      <div class="translation-section">
+        <span class="translation-label">Furigana:</span>
+        <div id="furiganaText" class="translation-text">-</div>
+      </div>
+    </div>
+
+    <!-- JLPT / Grammar Helper Section -->
+    <div class="input-group" style="margin-top: 20px;">
+      <input type="text" id="helperInput" placeholder="Ask about grammar, kanji, JLPT..." />
+      <button id="helperBtn">🧠 Ask AI</button>
+    </div>
+    <div class="translation-section" id="helperResponseSection" style="display: none;">
+      <span class="translation-label">AI Explanation:</span>
+      <div id="helperResponse" class="translation-text">-</div>
+    </div>
+  </div>
+
+<script>
+  let latestTranslation = "";
+
+  document.getElementById("translateBtn").addEventListener("click", translateText);
+
+  async function translateText() {
+    const input = document.getElementById("inputText").value.trim();
+    if (!input) return alert("Please enter a sentence.");
+
+    document.getElementById('outputText').textContent = "-";
+    document.getElementById('furiganaText').textContent = "-";
+
+    try {
+      const response = await fetch("http://localhost:5000/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phrase: input })
+      });
+
+      const data = await response.json();
+
+      if (data.translation) {
+        document.getElementById("outputText").textContent = data.translation;
+        document.getElementById("furiganaText").innerHTML = data.furigana || "-";
+        latestTranslation = data.translation;
+      } else {
+        document.getElementById("outputText").textContent = "No translation received";
+        document.getElementById("furiganaText").textContent = "-";
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      document.getElementById("outputText").textContent = "Error connecting to translation service";
+      document.getElementById("furiganaText").textContent = "-";
+    }
+  }
+
+  // LISTEN BUTTON
+  document.getElementById("listenBtn").addEventListener("click", async () => {
+    if (!latestTranslation) return alert("Translate something first!");
+
+    try {
+      const response = await fetch("http://localhost:5000/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: latestTranslation })
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const audio = new Audio(url);
+        audio.play();
+      } else {
+        alert("Error generating speech.");
+      }
+    } catch (err) {
+      console.error("TTS error:", err);
+      alert("Failed to connect to TTS service.");
+    }
+  });
+
+  // MIC BUTTON (SPEECH TO TEXT)
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+  const micBtn = document.getElementById("micBtn");
+
+  if (recognition) {
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    micBtn.addEventListener("click", () => {
+      if (micBtn.classList.contains("listening")) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    });
+
+    recognition.onstart = () => {
+      micBtn.classList.add("listening");
+      micBtn.textContent = "🎙️ Listening...";
+    };
+
+    recognition.onend = () => {
+      micBtn.classList.remove("listening");
+      micBtn.textContent = "🎙️ Speak";
+    };
+
+    recognition.onerror = (event) => {
+      micBtn.classList.remove("listening");
+      micBtn.textContent = "🎙️ Speak";
+      alert("Speech recognition error: " + event.error);
+    };
+
+    recognition.onresult = (event) => {
+      const spokenText = event.results[0][0].transcript;
+      document.getElementById("inputText").value = spokenText;
+      translateText();
+    };
+  } else {
+    micBtn.disabled = true;
+    micBtn.textContent = "🎙️ Not supported in this browser";
+  }
+
+  // 🧠 JLPT / Grammar Helper
+  document.getElementById("helperBtn").addEventListener("click", async () => {
+    const helperInput = document.getElementById("helperInput").value.trim();
+    if (!helperInput) return alert("Ask something like 'What does 勉強 mean?' or 'Explain this grammar: ～ている'");
+
+    document.getElementById("helperResponseSection").style.display = "block";
+    document.getElementById("helperResponse").textContent = "Thinking...";
+
+    try {
+      const res = await fetch("http://localhost:5000/japanese_helper", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: helperInput })
+      });
+
+      const data = await res.json();
+      document.getElementById("helperResponse").textContent = data.response || "No response.";
+    } catch (err) {
+      console.error("JLPT helper error:", err);
+      document.getElementById("helperResponse").textContent = "Failed to get explanation.";
+    }
+  });
+</script>
+
+</body>
+</html>
