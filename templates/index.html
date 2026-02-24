@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日本語トレーナー — Offline JLPT Trainer</title>
+  <link rel="stylesheet" href="/static/css/app.css" />
+  <!-- CDN deps — no build step required -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.prod.js"></script>
+  <script src="https://unpkg.com/dompurify@3/dist/purify.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <!-- Top nav bar -->
+  <nav class="navbar" v-if="!loading">
+    <span class="nav-brand" @click="$router.push('/')">🗾 日本語 Trainer</span>
+    <div class="nav-links">
+      <router-link to="/"           class="nav-link">Dashboard</router-link>
+      <router-link to="/flashcards" class="nav-link">Flashcards</router-link>
+      <router-link to="/vocab"      class="nav-link">Vocabulary</router-link>
+      <router-link to="/kanji"      class="nav-link">Kanji</router-link>
+      <router-link to="/tutor"      class="nav-link">AI Tutor</router-link>
+      <router-link to="/progress"   class="nav-link">Progress</router-link>
+    </div>
+    <div class="nav-health">
+      <span :class="['health-dot', health.db ? 'ok' : 'err']" title="PostgreSQL"></span>
+      <span :class="['health-dot', health.ollama ? 'ok' : 'warn']" title="Ollama"></span>
+      <span :class="['health-dot', health.piper ? 'ok' : 'warn']" title="Piper TTS"></span>
+    </div>
+  </nav>
+
+  <!-- Loading screen -->
+  <div v-if="loading" class="loading-screen">
+    <div class="loading-spinner"></div>
+    <p>起動中…</p>
+  </div>
+
+  <!-- Fatal error -->
+  <div v-else-if="fatalError" class="fatal-error">
+    <h2>⚠️ Cannot reach the server</h2>
+    <p>Make sure <code>uvicorn main:app</code> is running and reload this page.</p>
+  </div>
+
+  <!-- Main router view -->
+  <main v-else class="main-content">
+    <router-view></router-view>
+  </main>
+</div>
+
+<!-- View components -->
+<script src="/static/js/views/Dashboard.js"></script>
+<script src="/static/js/views/Flashcards.js"></script>
+<script src="/static/js/views/VocabBrowser.js"></script>
+<script src="/static/js/views/KanjiBrowser.js"></script>
+<script src="/static/js/views/Tutor.js"></script>
+<script src="/static/js/views/Progress.js"></script>
+
+<!-- Main app bootstrap -->
+<script src="/static/js/app.js"></script>
+</body>
+</html>
