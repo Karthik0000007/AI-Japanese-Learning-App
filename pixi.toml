@@ -3,37 +3,43 @@ authors = ["Damineni Hemanth Satya Veer <hemanthdamineni@gmail.com>"]
 name = "AI Japanese Learning"
 version = "0.1.0"
 
-channels = ["pytorch", "conda-forge", "main"]
+channels = ["conda-forge", "main"]
 pypi-options = { index-url = "https://pypi.org/simple" }
 platforms = ["win-64", "linux-64"]
 
 [tasks]
+start = "uvicorn main:app --reload --host 127.0.0.1 --port 8000"
+setup = "python tools/setup.py"
+seed  = "python tools/seed.py"
+test  = "pytest tests/ -v"
 
 [dependencies]
-python = "*"
-
-# Torch stack
-pytorch = "*"
-torchvision = "*"
-torchaudio = "*"
-cpuonly = "*"
-
-# Conda packages
-flask = "*"
-flask_cors = "*"
-transformers = "*"
-gtts = "*"
-jaconv = "*"
-ffmpeg-python = "*"
-pip = ">=25.3,<26"
-huggingface_hub = ">=0.36.0,<0.37"
+python = ">=3.10,<3.13"
+pip    = ">=25.0,<26"
+# lxml ships a conda-forge binary wheel (saves compile time on Windows)
+lxml   = ">=5.2"
 
 [pypi-dependencies]
-fugashi = "*"
-soundfile = "*"
-unidic-lite = "*"
-langchain-community = "*"
-sentencepiece = "*"
-langchain-ollama = "*"
-piper-tts = ">=1.3.0, <2"
-huggingface-hub = "*"
+# Web
+fastapi            = ">=0.111.0"
+uvicorn            = {version = ">=0.29.0", extras = ["standard"]}
+python-multipart   = ">=0.0.9"
+
+# Database
+sqlmodel           = ">=0.0.19"
+sqlalchemy         = {version = ">=2.0.30", extras = ["asyncio"]}
+asyncpg            = ">=0.29.0"
+alembic            = ">=1.13.1"
+psycopg2-binary    = ">=2.9.9"
+
+# HTTP (Ollama streaming)
+httpx              = ">=0.27.0"
+
+# Settings
+pydantic-settings  = ">=2.2.1"
+python-dotenv      = ">=1.0.1"
+
+# Dev / test
+pytest             = ">=8.0.0"
+pytest-asyncio     = ">=0.23.0"
+httpx              = ">=0.27.0"   # also used by FastAPI TestClient
