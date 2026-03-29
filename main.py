@@ -23,7 +23,7 @@ from fastapi.staticfiles import StaticFiles
 
 from config import settings
 from database.db import engine
-from routers import cards, health, kanji, progress, settings as settings_router, tts, tutor, vocab
+from routers import cards, health, kanji, progress, settings as settings_router, speech, tts, tutor, vocab
 
 logging.basicConfig(
     level=settings.log_level.upper(),
@@ -69,6 +69,7 @@ async def lifespan(app: FastAPI):
     # 3. Warn about optional AI dependencies
     from core.tutor import check_ollama_health
     from core.tts_piper import check_piper_available
+    from core.whisper import check_whisper_available
 
     if not await check_ollama_health():
         log.warning(
@@ -87,6 +88,17 @@ async def lifespan(app: FastAPI):
         )
     else:
         log.info("Piper TTS OK")
+
+    if not check_whisper_available():
+        log.warning(
+            "Whisper model '%s' not downloaded yet. "
+            "Speech-to-text will work but the first transcription will be slower (model downloading). "
+            "You can pre-download by running: python -c 'import whisper; whisper.load_model(\"%s\")'",
+            settings.whisper_model,
+            settings.whisper_model,
+        )
+    else:
+        log.info("Whisper STT OK — model: %s", settings.whisper_model)
 
     log.info("Ready — serving at http://%s:%d", settings.app_host, settings.app_port)
     yield  # ─── application running ───
@@ -134,6 +146,7 @@ app.include_router(vocab.router)
 app.include_router(kanji.router)
 app.include_router(tutor.router)
 app.include_router(tts.router)
+app.include_router(speech.router)
 app.include_router(progress.router)
 app.include_router(settings_router.router)
 

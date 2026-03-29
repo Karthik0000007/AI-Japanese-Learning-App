@@ -3,7 +3,7 @@ routers/tutor.py — AI Tutor SSE streaming endpoint.
 
 POST /api/tutor/chat
   Request body: { "message": str, "mode": TutorMode, "level": str }
-  Response: text/event-stream — each event is data: {"token": "..."}\n\n
+  Response: text/event-stream — each event is data: {"token": "...", "language": "ja"|"en", ...}\n\n
             Terminated by data: [DONE]\n\n
 """
 import json
@@ -40,8 +40,9 @@ async def tutor_chat(
         ctx.jlpt_level = payload.level
 
     async def event_stream():
-        async for token in stream_response(payload.message, payload.mode, ctx):
-            yield f"data: {json.dumps({'token': token})}\n\n"
+        async for item in stream_response(payload.message, payload.mode, ctx):
+            # item is now a dict with token, language, sentence_complete, etc.
+            yield f"data: {json.dumps(item)}\n\n"
         yield "data: [DONE]\n\n"
 
     return StreamingResponse(

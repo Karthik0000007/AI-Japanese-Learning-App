@@ -178,6 +178,57 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 .mode-tab  { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
 .mode-tab.active  { background: var(--accent); color: #fff; border-color: var(--accent); }
 
+/* ── Microphone & Audio Controls ────────────────────────────────────── */
+.btn-icon {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.7rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 8px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-icon:hover:not(:disabled) { border-color: var(--accent); background: var(--surface); }
+.btn-icon.recording { background: var(--err); border-color: var(--err); animation: pulse 1s infinite; }
+.btn-icon.active { background: var(--ok); border-color: var(--ok); color: #fff; }
+.btn-icon:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ── Transcription Preview ─────────────────────────────────────────── */
+.transcription-preview {
+  background: var(--surface2);
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.transcribed-text {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+  font-family: var(--font-ui);
+  line-height: 1.5;
+  word-wrap: break-word;
+  color: var(--text);
+}
+
+/* ── Button Variants ──────────────────────────────────────────────── */
+.btn-warn { background: var(--warn); color: #fff; }
+.btn-warn:hover { filter: brightness(1.15); }
+.btn-warn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+
 /* ── Kanji detail card ──────────────────────────────────────────────── */
 .kanji-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.75rem; }
 .kanji-tile {

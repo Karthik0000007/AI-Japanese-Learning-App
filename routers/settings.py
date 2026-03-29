@@ -12,7 +12,7 @@ from models.meta import META_DEFAULTS, Meta
 
 router = APIRouter(prefix="/api/settings", tags=["settings"])
 
-_ALLOWED_KEYS = set(META_DEFAULTS.keys()) | {"jlpt_focus", "new_cards_per_day"}
+_ALLOWED_KEYS = set(META_DEFAULTS.keys()) | {"jlpt_focus", "new_cards_per_day", "language"}
 
 
 class SettingUpdate(SQLModel):

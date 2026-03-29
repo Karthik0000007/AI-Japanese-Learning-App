@@ -20,4 +20,5 @@ META_DEFAULTS: dict[str, str] = {
     "jlpt_focus": '"N5"',
     "new_cards_per_day": "20",
     "db_version": '"jlpt-db-v1.0.0"',
+    "language": '"auto"',  # auto-detect based on content
 }

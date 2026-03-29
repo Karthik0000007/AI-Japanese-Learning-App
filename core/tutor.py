@@ -20,6 +20,7 @@ from enum import Enum
 import httpx
 
 from config import settings
+from core.language_detect import detect_language
 
 
 class TutorMode(str, Enum):
@@ -128,14 +129,21 @@ async def stream_response(
     message: str,
     mode: TutorMode,
     context: TutorContext,
-) -> AsyncGenerator[str, None]:
+) -> AsyncGenerator[dict, None]:
     """
-    Yield text tokens as they arrive from Ollama.
+    Yield token objects with language metadata as they arrive from Ollama.
+
+    Each yielded object contains:
+    {
+        "token": <str>,           # The text token
+        "language": "ja" | "en",  # Detected language of the token
+        "sentence_complete": bool # True if this token completes a sentence
+    }
 
     Usage in router:
         async def sse_event_gen():
-            async for token in stream_response(msg, mode, ctx):
-                yield f"data: {json.dumps({'token': token})}\n\n"
+            async for item in stream_response(msg, mode, ctx):
+                yield f"data: {json.dumps(item)}\n\n"
             yield "data: [DONE]\n\n"
     """
     system_prompt = _build_system_prompt(mode, context)
@@ -146,6 +154,11 @@ async def stream_response(
         "prompt": message,
         "stream": True,
     }
+
+    sentence_buffer = ""  # Accumulate tokens into sentences
+    sentence_id = 0
+    japanese_sentence_end_chars = "。！？\n"
+    english_sentence_end_chars = ".!?\n"
 
     async with httpx.AsyncClient(timeout=None) as client:
         try:
@@ -165,20 +178,55 @@ async def stream_response(
 
                     token = chunk.get("response", "")
                     if token:
-                        yield token
+                        sentence_buffer += token
+
+                        # Check if sentence is complete
+                        sentence_complete = False
+                        if any(
+                            c in token for c in (japanese_sentence_end_chars + english_sentence_end_chars)
+                        ):
+                            sentence_complete = True
+                            sentence_id += 1
+
+                        # Detect language of accumulated sentence
+                        language = detect_language(sentence_buffer)
+
+                        yield {
+                            "token": token,
+                            "language": language,
+                            "sentence_complete": sentence_complete,
+                            "sentence_id": sentence_id,
+                        }
+
+                        # Reset buffer after sentence completes
+                        if sentence_complete:
+                            sentence_buffer = ""
 
                     if chunk.get("done"):
                         return
         except httpx.ConnectError:
-            yield "[ERROR: Ollama is not running. Start it with: ollama serve]"
+            error_token = "[ERROR: Ollama is not running. Start it with: ollama serve]"
+            yield {
+                "token": error_token,
+                "language": "en",
+                "sentence_complete": True,
+                "sentence_id": sentence_id,
+            }
         except httpx.HTTPStatusError as exc:
             if exc.response.status_code == 404:
-                yield (
+                error_token = (
                     f"[ERROR: Model '{settings.ollama_model}' not found. "
                     f"Pull it with: ollama pull {settings.ollama_model}]"
                 )
             else:
-                yield f"[ERROR: Ollama HTTP {exc.response.status_code}]"
+                error_token = f"[ERROR: Ollama HTTP {exc.response.status_code}]"
+            yield {
+                "token": error_token,
+                "language": "en",
+                "sentence_complete": True,
+                "sentence_id": sentence_id,
+            }
+
 
 
 async def check_ollama_health() -> bool:

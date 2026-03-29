@@ -25,6 +25,10 @@ class Settings(BaseSettings):
     piper_binary: str = "piper"
     piper_model_path: str = "static/piper/ja_JP-kokoro-medium.onnx"
 
+    # Whisper STT
+    whisper_model: str = "base"
+    whisper_device: str = "cpu"
+
     # SRS defaults
     new_cards_per_day: int = 20
 
