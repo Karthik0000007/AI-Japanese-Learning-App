@@ -1,5 +1,6 @@
 # Python virtual environments
 venv/
+.venv/
 env/
 *.egg-info/
 __pycache__/
