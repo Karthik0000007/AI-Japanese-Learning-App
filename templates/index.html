@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>日本語トレーナー — Offline JLPT Trainer</title>
   <link rel="stylesheet" href="/static/css/app.css" />
-  <!-- CDN deps — no build step required -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-  <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.prod.js"></script>
-  <script src="https://unpkg.com/dompurify@3/dist/purify.min.js"></script>
+  <!-- Vendored deps (pinned, see static/vendor/VERSIONS.md) — fully offline, no CDN -->
+  <script src="/static/vendor/vue.global.prod.js"></script>
+  <script src="/static/vendor/vue-router.global.prod.js"></script>
+  <script src="/static/vendor/purify.min.js"></script>
+  <script src="/static/js/utils/tts.js"></script>
+  <script src="/static/js/utils/health.js"></script>
 </head>
 <body>
 
@@ -25,9 +27,10 @@
       <router-link to="/progress"   class="nav-link">Progress</router-link>
     </div>
     <div class="nav-health">
-      <span :class="['health-dot', health.db ? 'ok' : 'err']" title="PostgreSQL"></span>
-      <span :class="['health-dot', health.ollama ? 'ok' : 'warn']" title="Ollama"></span>
-      <span :class="['health-dot', health.piper ? 'ok' : 'warn']" title="Piper TTS"></span>
+      <span :class="['health-dot', health.db ? 'ok' : 'err']" title="Database"></span>
+      <span :class="['health-dot', health.tutor ? 'ok' : 'warn']" :title="'AI tutor: ' + (health.tutor ? 'on' : 'off')"></span>
+      <span :class="['health-dot', health.speech ? 'ok' : 'warn']" :title="'Voice input: ' + (health.speech ? 'on' : 'off')"></span>
+      <span :class="['health-dot', health.tts ? 'ok' : 'warn']" :title="'Japanese audio: ' + (health.tts ? 'on' : 'off')"></span>
     </div>
   </nav>
 
