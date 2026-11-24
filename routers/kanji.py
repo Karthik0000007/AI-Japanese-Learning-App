@@ -2,7 +2,7 @@
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy import func, select
+from sqlalchemy import case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.db import get_session
@@ -13,19 +13,30 @@ router = APIRouter(prefix="/api/kanji", tags=["kanji"])
 
 PAGE_SIZE = 50
 
+# Maps JLPT level to sort order (N5=5, N4=4, ..., N1=1)
+JLPT_LEVEL_ORDER = case(
+    (Kanji.jlpt_level == "N5", 5),
+    (Kanji.jlpt_level == "N4", 4),
+    (Kanji.jlpt_level == "N3", 3),
+    (Kanji.jlpt_level == "N2", 2),
+    (Kanji.jlpt_level == "N1", 1),
+    else_=0,
+)
+
 
 @router.get("", response_model=KanjiPage)
 async def list_kanji(
     level: Optional[JLPTLevel] = Query(None),
-    q: Optional[str] = Query(None, description="Search in character, readings, or meaning"),
+    search: Optional[str] = Query(None, description="Search in character, readings, or meaning"),
     page: int = Query(1, ge=1),
+    limit: int = Query(PAGE_SIZE, ge=1, le=200),
     db: AsyncSession = Depends(get_session),
 ) -> KanjiPage:
     stmt = select(Kanji)
     if level:
         stmt = stmt.where(Kanji.jlpt_level == level)
-    if q:
-        like = f"%{q}%"
+    if search:
+        like = f"%{search}%"
         stmt = stmt.where(
             Kanji.character.ilike(like) | Kanji.example_word.ilike(like)
         )
@@ -33,12 +44,12 @@ async def list_kanji(
     count_stmt = select(func.count()).select_from(stmt.subquery())
     total: int = (await db.execute(count_stmt)).scalar_one()
 
-    stmt = stmt.order_by(Kanji.jlpt_level, Kanji.freq_rank.asc().nullslast(), Kanji.id)
-    stmt = stmt.offset((page - 1) * PAGE_SIZE).limit(PAGE_SIZE)
+    stmt = stmt.order_by(JLPT_LEVEL_ORDER.desc(), Kanji.freq_rank.asc().nullslast(), Kanji.id)
+    stmt = stmt.offset((page - 1) * limit).limit(limit)
     rows = (await db.execute(stmt)).scalars().all()
 
     items = [_to_response(k) for k in rows]
-    return KanjiPage(items=items, total=total, page=page, page_size=PAGE_SIZE)
+    return KanjiPage(items=items, total=total, page=page, page_size=limit)
 
 
 @router.get("/{character}", response_model=KanjiResponse)

@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import gzip
 import json
-import re
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -34,14 +33,14 @@ def download_kanjidic(force: bool = False) -> Path:
     if CACHE_GZ.exists() and not force:
         print(f"[KANJIDIC] Using cached file: {CACHE_GZ}")
         return CACHE_GZ
-    print(f"[KANJIDIC] Downloading from {KANJIDIC_URL} …")
+    print(f"[KANJIDIC] Downloading from {KANJIDIC_URL} ...")
     urllib.request.urlretrieve(KANJIDIC_URL, CACHE_GZ)
     print(f"[KANJIDIC] Saved ({CACHE_GZ.stat().st_size / 1e6:.1f} MB)")
     return CACHE_GZ
 
 
 def parse_kanjidic(gz_path: Path) -> list[dict[str, Any]]:
-    print("[KANJIDIC] Parsing XML…")
+    print("[KANJIDIC] Parsing XML...")
     entries: list[dict[str, Any]] = []
 
     with gzip.open(gz_path, "rb") as f:
@@ -115,7 +114,7 @@ def run(force_download: bool = False) -> list[dict[str, Any]]:
     OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(entries, f, ensure_ascii=False, indent=2)
-    print(f"[KANJIDIC] Wrote {len(entries)} entries → {OUTPUT_JSON}")
+    print(f"[KANJIDIC] Wrote {len(entries)} entries -> {OUTPUT_JSON}")
     return entries
 
 

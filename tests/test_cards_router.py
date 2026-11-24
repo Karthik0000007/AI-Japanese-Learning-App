@@ -1,16 +1,14 @@
 """tests/test_cards_router.py — Integration tests for the /api/cards endpoints."""
 import pytest
-import pytest_asyncio
 from sqlmodel import select
 
-from models.srs import SRSCard
+from models.srs import ReviewLog, SRSCard
 from models.vocab import Vocab
-
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
 async def _create_vocab(session) -> Vocab:
-    """Insert one minimal vocab row for testing."""
+    """Insert one minimal vocab row (flushed, not committed, so the test rollback removes it)."""
     v = Vocab(
         word="食べる",
         reading="たべる",
@@ -19,8 +17,7 @@ async def _create_vocab(session) -> Vocab:
         jlpt_level="N5",
     )
     session.add(v)
-    await session.commit()
-    await session.refresh(v)
+    await session.flush()
     return v
 
 
@@ -52,36 +49,41 @@ async def test_start_session(client):
     res = await client.post("/api/cards/sessions")
     assert res.status_code == 200
     data = res.json()
-    assert "id" in data
-    assert isinstance(data["id"], int)
+    assert isinstance(data["session_id"], int)
 
 
 @pytest.mark.asyncio
-async def test_submit_review_creates_card(client, session):
-    """POSTing a review for a new vocab item should create an SRS card."""
+async def test_submit_review_updates_card(client, session):
+    """Introducing a word creates its SRS card; grading it 'good' updates the card and logs the review."""
     vocab = await _create_vocab(session)
-    res = await client.post(
-        "/api/cards/review",
-        json={"item_type": "vocab", "item_id": vocab.id, "score": 3},
-    )
+    new_cards = (await client.get("/api/cards/new")).json()
+    card_id = next(c["card_id"] for c in new_cards if c["item_id"] == vocab.id)
+
+    res = await client.post("/api/cards/review", json={"card_id": card_id, "grade": 3})
     assert res.status_code == 200
     data = res.json()
-    assert data["item_id"] == vocab.id
-    assert data["interval"] >= 1
+    assert data["card_id"] == card_id
+    assert data["reps"] == 1
+    assert data["interval_days"] == 1
 
-    # Confirm card is in DB
-    result = await session.execute(
-        select(SRSCard).where(SRSCard.item_id == vocab.id)
-    )
-    card = result.scalar_one_or_none()
-    assert card is not None
+    card = (await session.execute(select(SRSCard).where(SRSCard.id == card_id))).scalar_one()
+    assert card.reps == 1
+    logs = (await session.execute(select(ReviewLog).where(ReviewLog.card_id == card_id))).scalars().all()
+    assert len(logs) == 1
+
+
+@pytest.mark.asyncio
+async def test_submit_review_unknown_card_is_404(client):
+    """Reviewing a card id that does not exist returns 404."""
+    res = await client.post("/api/cards/review", json={"card_id": 999999, "grade": 3})
+    assert res.status_code == 404
 
 
 @pytest.mark.asyncio
 async def test_end_session(client):
     """PATCHing a session should return 200 and set ended_at."""
     start_res = await client.post("/api/cards/sessions")
-    sid = start_res.json()["id"]
+    sid = start_res.json()["session_id"]
     end_res = await client.patch(f"/api/cards/sessions/{sid}")
     assert end_res.status_code == 200
     data = end_res.json()

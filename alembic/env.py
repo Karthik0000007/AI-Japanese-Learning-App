@@ -6,15 +6,15 @@ use the run_sync pattern recommended in the official Alembic async docs.
 import asyncio
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
+from sqlmodel import SQLModel
 
 # Import all models so their metadata is registered before Alembic introspects it
 import models  # noqa: F401  (registers all table classes via side-effect)
+from alembic import context
 from config import settings
-from sqlmodel import SQLModel
 
 # Alembic Config object — gives access to values in alembic.ini
 config = context.config

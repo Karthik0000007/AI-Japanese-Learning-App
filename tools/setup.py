@@ -9,7 +9,6 @@ Run: python tools/setup.py
 from __future__ import annotations
 
 import asyncio
-import os
 import shutil
 import subprocess
 import sys
@@ -37,17 +36,18 @@ def banner(title: str) -> None:
 
 async def check_postgres() -> None:
     banner("Step 1/5 — Check PostgreSQL")
+    from sqlalchemy import text
+
     from config import settings
     from database.db import engine
-    from sqlalchemy import text
 
     print(f"  URL: {settings.database_url.split('@')[-1]}")
     try:
         async with engine.connect() as conn:
             await conn.execute(text("SELECT 1"))
-        print("  ✓ PostgreSQL connection OK")
+        print("  [OK] PostgreSQL connection OK")
     except Exception as exc:
-        print(f"  ✗ Cannot connect: {exc}")
+        print(f"  [FAIL] Cannot connect: {exc}")
         print("\n  Fix: Start PostgreSQL and set DATABASE_URL in .env")
         print("  Quickstart with Docker:")
         print(
@@ -69,23 +69,23 @@ def run_migrations() -> None:
         capture_output=False,
     )
     if result.returncode != 0:
-        print("  ✗ Alembic migration failed.")
+        print("  [FAIL] Alembic migration failed.")
         sys.exit(1)
-    print("  ✓ Schema at head")
+    print("  [OK] Schema at head")
 
 
 # ─── Step 3: Ollama ───────────────────────────────────────────────────────────
 
 async def check_ollama() -> None:
     banner("Step 3/5 — Check Ollama")
-    from core.tutor import check_ollama_health
     from config import settings
+    from core.tutor import check_ollama_health
 
     ok = await check_ollama_health()
     if ok:
-        print(f"  ✓ Ollama running — model '{settings.ollama_model}' available")
+        print(f"  [OK] Ollama running — model '{settings.ollama_model}' available")
     else:
-        print(f"  ⚠ Ollama not running or model '{settings.ollama_model}' not pulled")
+        print(f"  [WARN] Ollama not running or model '{settings.ollama_model}' not pulled")
         print("  The AI Tutor will be unavailable until you run:")
         print("    ollama serve")
         print(f"    ollama pull {settings.ollama_model}")
@@ -102,30 +102,30 @@ def download_piper_model() -> None:
     json_path = PIPER_MODEL_DIR / JSON_FILENAME
 
     if onnx_path.exists() and json_path.exists():
-        print(f"  ✓ Model already present: {onnx_path}")
+        print(f"  [OK] Model already present: {onnx_path}")
         return
 
     for filename, path in [(ONNX_FILENAME, onnx_path), (JSON_FILENAME, json_path)]:
         if path.exists():
-            print(f"  ✓ {filename} already present")
+            print(f"  [OK] {filename} already present")
             continue
         url = f"{PIPER_MODEL_URL_BASE}/{filename}"
-        print(f"  ↓ Downloading {filename} …")
+        print(f"  v Downloading {filename} ...")
         try:
             urllib.request.urlretrieve(url, path)
             size_mb = path.stat().st_size / 1e6
-            print(f"  ✓ {filename} ({size_mb:.1f} MB)")
+            print(f"  [OK] {filename} ({size_mb:.1f} MB)")
         except Exception as exc:
-            print(f"  ✗ Failed to download {filename}: {exc}")
+            print(f"  [FAIL] Failed to download {filename}: {exc}")
             print(f"  Manual download: {url}")
             print(f"  Save to: {path.absolute()}")
 
     # Check piper binary is available
     piper_bin = shutil.which("piper")
     if piper_bin:
-        print(f"  ✓ Piper binary found: {piper_bin}")
+        print(f"  [OK] Piper binary found: {piper_bin}")
     else:
-        print("  ⚠ Piper binary not found in PATH.")
+        print("  [WARN] Piper binary not found in PATH.")
         print("  Download from: https://github.com/rhasspy/piper/releases")
         print("  Or set PIPER_BINARY in .env to the absolute path.")
 
@@ -141,23 +141,23 @@ async def seed_database() -> None:
     # Fetch JMdict if not already parsed
     jmdict_json = data_dir / "jmdict_parsed.json"
     if not jmdict_json.exists():
-        print("  Fetching and parsing JMdict (one-time, ~30 seconds)…")
+        print("  Fetching and parsing JMdict (one-time, ~30 seconds)...")
         from tools.fetch_jmdict import run as fetch_jmdict
         fetch_jmdict()
     else:
-        print(f"  ✓ JMdict parsed data exists: {jmdict_json}")
+        print(f"  [OK] JMdict parsed data exists: {jmdict_json}")
 
     # Fetch KANJIDIC2 if not already parsed
     kanjidic_json = data_dir / "kanjidic_parsed.json"
     if not kanjidic_json.exists():
-        print("  Fetching and parsing KANJIDIC2 (one-time)…")
+        print("  Fetching and parsing KANJIDIC2 (one-time)...")
         from tools.fetch_kanjidic import run as fetch_kanjidic
         fetch_kanjidic()
     else:
-        print(f"  ✓ KANJIDIC2 parsed data exists: {kanjidic_json}")
+        print(f"  [OK] KANJIDIC2 parsed data exists: {kanjidic_json}")
 
     # Run seeder
-    print("  Seeding database (idempotent)…")
+    print("  Seeding database (idempotent)...")
     from tools.seed import main as seed_main
     await seed_main()
 
@@ -165,9 +165,9 @@ async def seed_database() -> None:
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
 async def async_main() -> None:
-    print("\n╔══════════════════════════════════════════════════════════╗")
-    print("║   Offline AI Japanese Language Trainer — First-Run Setup  ║")
-    print("╚══════════════════════════════════════════════════════════╝\n")
+    print("\n" + "=" * 60)
+    print("   Offline AI Japanese Language Trainer — First-Run Setup")
+    print("=" * 60 + "\n")
 
     # Create .env if missing
     if not Path(".env").exists() and Path(".env.example").exists():

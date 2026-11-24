@@ -1,0 +1,20 @@
+# Tool configuration only. Dependencies live in requirements*.txt (and pixi.toml).
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# The test DB engine in tests/conftest.py is created once per session, so every
+# async fixture and test must run on the same event loop.
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+# E/W: pycodestyle, F: pyflakes (unused imports, undefined names), I: import order
+select = ["E", "W", "F", "I"]
+ignore = [
+    "E501",  # long lines: prompts and SQL read better unwrapped
+]

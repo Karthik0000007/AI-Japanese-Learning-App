@@ -11,7 +11,6 @@ No external API or model required — pure regex on input text.
 """
 from __future__ import annotations
 
-
 JAPANESE_CHAR_PATTERN = r"[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]"
 """Regex pattern matching hiragana, katakana, or kanji."""
 

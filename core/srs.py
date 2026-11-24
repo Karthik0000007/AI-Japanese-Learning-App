@@ -16,7 +16,6 @@ Grade scale used by this app (UI shows Again / Hard / Good / Easy):
 """
 from __future__ import annotations
 
-import json
 import math
 from datetime import date, datetime, timedelta
 from typing import Optional
@@ -145,8 +144,9 @@ async def get_new_items(
         return []
 
     if item_type == ItemType.vocab:
-        from models.vocab import Vocab
         from sqlalchemy import exists
+
+        from models.vocab import Vocab
 
         stmt = (
             select(Vocab)
@@ -160,8 +160,9 @@ async def get_new_items(
             .limit(effective_limit)
         )
     else:
-        from models.kanji import Kanji
         from sqlalchemy import exists
+
+        from models.kanji import Kanji
 
         stmt = (
             select(Kanji)
@@ -244,9 +245,10 @@ async def get_level_stats(
     Return a dict with new / young / mature / due_today / total counts
     for a given JLPT level across both vocab and kanji.
     """
-    from models.vocab import Vocab
-    from models.kanji import Kanji
     from sqlalchemy import and_, or_
+
+    from models.kanji import Kanji
+    from models.vocab import Vocab
 
     # Total vocab + kanji at this level
     vocab_total = (await db.execute(
