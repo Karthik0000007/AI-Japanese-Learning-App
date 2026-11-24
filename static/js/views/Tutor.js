@@ -4,7 +4,7 @@
 const TutorView = {
   name: "Tutor",
   setup() {
-    const { ref, nextTick, onUnmounted } = Vue;
+    const { ref, nextTick, onMounted, onUnmounted } = Vue;
 
     const modes = ["TEACH", "QUIZ", "EXPLAIN", "CORRECT", "CHAT"];
     const mode = ref("CHAT");
@@ -15,6 +15,12 @@ const TutorView = {
     const isRecording = ref(false);
     const isTranscribing = ref(false);
     const chatEl = ref(null);
+
+    // Optional services (utils/health.js). null until /api/health answers.
+    const services = ref(null);
+    const tutorOff = () => services.value?.tutor === false;
+    const speechOff = () => services.value?.speech === false;
+    const ttsOff = () => services.value?.tts === false;
 
     // Audio/Microphone state
     let mediaRecorder = null;
@@ -49,6 +55,11 @@ const TutorView = {
     // ─── Speech-to-Text (Microphone) ─────────────────────────────────────────
 
     async function startRecording() {
+      if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
+        alert("This browser does not support microphone recording.");
+        return;
+      }
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -56,7 +67,10 @@ const TutorView = {
         const source = audioContext.createMediaStreamSource(stream);
         source.connect(analyser);
 
-        mediaRecorder = new MediaRecorder(stream);
+        const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+          ? "audio/webm;codecs=opus"
+          : undefined;
+        mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
         audioChunks = [];
 
         mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
@@ -78,7 +92,8 @@ const TutorView = {
       mediaRecorder.stop();
 
       mediaRecorder.onstop = async () => {
-        const blob = new Blob(audioChunks, { type: "audio/wav" });
+        const blobType = mediaRecorder.mimeType || "audio/webm";
+        const blob = new Blob(audioChunks, { type: blobType });
         await sendAudioToSpeechAPI(blob);
         // Stop audio stream
         mediaRecorder.stream.getTracks().forEach((t) => t.stop());
@@ -89,7 +104,8 @@ const TutorView = {
       isTranscribing.value = true;
       try {
         const formData = new FormData();
-        formData.append("audio", audioBlob, "audio.wav");
+        const ext = audioBlob.type.includes("webm") ? "webm" : "wav";
+        formData.append("audio", audioBlob, `audio.${ext}`);
 
         const res = await fetch("/api/speech-to-text", {
           method: "POST",
@@ -112,9 +128,8 @@ const TutorView = {
 
     function confirmTranscription() {
       if (transcribedText.value.trim()) {
-        input.value = transcribedText.value;
+        input.value = [input.value, transcribedText.value].filter(Boolean).join(" ").trim();
         transcribedText.value = "";
-        send();
       }
     }
 
@@ -137,7 +152,7 @@ const TutorView = {
     // ─── TTS Audio Queue Processing ──────────────────────────────────────────
 
     async function processAudioQueue() {
-      if (audioPlaying.value || audioQueue.value.length === 0 || audioMuted.value) return;
+      if (audioPlaying.value || audioQueue.value.length === 0 || audioMuted.value || ttsOff()) return;
 
       audioPlaying.value = true;
       const item = audioQueue.value.shift();
@@ -205,7 +220,7 @@ const TutorView = {
 
     async function send() {
       const text = input.value.trim();
-      if (!text || busy.value) return;
+      if (!text || busy.value || tutorOff()) return;
 
       input.value = "";
       messages.value.push({ role: "user", text });
@@ -229,7 +244,10 @@ const TutorView = {
         });
 
         if (!res.ok) {
-          messages.value[idx].text = "⚠️ Tutor unavailable. Make sure Ollama is running.";
+          // The server explains what is wrong and how to fix it (see routers/tutor.py)
+          const body = await res.json().catch(() => ({}));
+          messages.value[idx].text = "⚠️ " + (body.detail || `Tutor unavailable (HTTP ${res.status}).`);
+          if (res.status === 503) services.value = await fetchServiceStatus();
           busy.value = false;
           return;
         }
@@ -301,6 +319,10 @@ const TutorView = {
       }
     }
 
+    onMounted(async () => {
+      services.value = await fetchServiceStatus();
+    });
+
     onUnmounted(() => {
       closeES();
       if (animationFrameId) {
@@ -330,12 +352,18 @@ const TutorView = {
       confirmTranscription,
       reRecord,
       processAudioQueue,
+      services,
+      tutorOff,
+      speechOff,
+      ttsOff,
     };
   },
 
   template: `
   <div style="max-width:760px; margin:0 auto">
     <h1 class="section-title">🤖 AI Tutor</h1>
+
+    <service-notice :status="services" :show="['tutor', 'speech', 'tts']"></service-notice>
 
     <!-- Mode tabs -->
     <div class="mode-tabs">
@@ -371,7 +399,7 @@ const TutorView = {
       <p class="muted" style="font-size:0.8rem; margin-bottom:0.3rem">Transcribed text (edit or re-record):</p>
       <div class="transcribed-text">{{ transcribedText }}</div>
       <div style="display:flex; gap:0.5rem; margin-top:0.5rem">
-        <button @click="confirmTranscription" class="btn-good" style="flex:1">Send</button>
+        <button @click="confirmTranscription" :disabled="tutorOff()" class="btn-good" style="flex:1">Send</button>
         <button @click="reRecord" class="btn-warn" style="flex:1">Re-record</button>
       </div>
     </div>
@@ -381,9 +409,9 @@ const TutorView = {
       <!-- Microphone button -->
       <button
         @click="isRecording ? stopRecording() : startRecording()"
-        :disabled="busy || isTranscribing || transcribedText"
+        :disabled="busy || isTranscribing || speechOff()"
         :class="['btn-icon', { recording: isRecording }]"
-        :title="isRecording ? 'Stop recording' : 'Start recording'"
+        :title="speechOff() ? 'Voice input is off (see the note above)' : isRecording ? 'Stop recording' : 'Start recording'"
       >
         {{ isRecording ? '🔴' : '🎤' }}
       </button>
@@ -391,23 +419,24 @@ const TutorView = {
       <!-- Audio controls -->
       <button
         @click="audioMuted = !audioMuted"
-        :class="['btn-icon', { active: !audioMuted }]"
-        title="Toggle Japanese audio"
+        :disabled="ttsOff()"
+        :class="['btn-icon', { active: !audioMuted && !ttsOff() }]"
+        :title="ttsOff() ? 'Japanese audio is off (see the note above)' : 'Toggle Japanese audio'"
       >
-        {{ audioMuted ? '🔇' : '🔊' }}
+        {{ audioMuted || ttsOff() ? '🔇' : '🔊' }}
       </button>
 
       <!-- Text input -->
       <input
         v-model="input"
         @keydown="onKeydown"
-        placeholder="Type in English or Japanese…"
-        :disabled="busy || isRecording || transcribedText"
+        :placeholder="tutorOff() ? 'The AI tutor is off (see the note above)' : 'Type in English or Japanese…'"
+        :disabled="busy || isRecording || tutorOff()"
         style="flex: 1"
       />
 
       <!-- Send button -->
-      <button @click="send" :disabled="busy || !input.trim() || isRecording" class="btn-good">
+      <button @click="send" :disabled="busy || !input.trim() || isRecording || tutorOff()" class="btn-good">
         {{ busy ? '…' : '送' }}
       </button>
     </div>

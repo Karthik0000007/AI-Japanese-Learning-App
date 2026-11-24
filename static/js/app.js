@@ -22,22 +22,13 @@ const App = {
   setup() {
     const loading     = ref(true);
     const fatalError  = ref(false);
-    const health      = reactive({ db: false, ollama: false, piper: false });
+    const health      = reactive({ db: false, tutor: false, speech: false, tts: false });
 
     async function fetchHealth() {
-      try {
-        const res = await fetch("/api/health");
-        if (!res.ok) throw new Error("health endpoint failed");
-        const data = await res.json();
-        health.db     = data.db;
-        health.ollama = data.ollama;
-        health.piper  = data.piper;
-        fatalError.value = !data.db;
-      } catch {
-        fatalError.value = true;
-      } finally {
-        loading.value = false;
-      }
+      // fetchServiceStatus (utils/health.js) turns "ok"/"unavailable" into true/false
+      Object.assign(health, await fetchServiceStatus());
+      fatalError.value = !health.db;
+      loading.value = false;
     }
 
     onMounted(() => {
@@ -53,4 +44,7 @@ const App = {
 };
 
 // ── Mount ──────────────────────────────────────────────────────────────────────
-createApp(App).use(router).mount("#app");
+createApp(App)
+  .component("service-notice", ServiceNotice)  // banner from utils/health.js
+  .use(router)
+  .mount("#app");
