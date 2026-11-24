@@ -1,0 +1,3262 @@
+{
+ "source": "JMdict and KANJIDIC2, (c) EDRDG, CC BY-SA 4.0. Built by tools/build_sample.py.",
+ "vocab": [
+  {
+   "word": "私",
+   "reading": "わたし",
+   "meaning": "I; me",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "人",
+   "reading": "ひと",
+   "meaning": "person; someone; somebody",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "男",
+   "reading": "おとこ",
+   "meaning": "man; male",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "女",
+   "reading": "おんな",
+   "meaning": "woman; female",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "子供",
+   "reading": "こども",
+   "meaning": "child; children",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "友達",
+   "reading": "ともだち",
+   "meaning": "friend; companion",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "先生",
+   "reading": "せんせい",
+   "meaning": "teacher; instructor; master",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "学生",
+   "reading": "がくせい",
+   "meaning": "student (esp. a university student)",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "父",
+   "reading": "ちち",
+   "meaning": "father",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "母",
+   "reading": "はは",
+   "meaning": "mother",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "兄",
+   "reading": "あに",
+   "meaning": "older brother; elder brother",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "姉",
+   "reading": "あね",
+   "meaning": "older sister; elder sister",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "弟",
+   "reading": "おとうと",
+   "meaning": "younger brother; little brother; kid brother",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "妹",
+   "reading": "いもうと",
+   "meaning": "younger sister",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "名前",
+   "reading": "なまえ",
+   "meaning": "name",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "学校",
+   "reading": "がっこう",
+   "meaning": "school",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "大学",
+   "reading": "だいがく",
+   "meaning": "university; college",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "家",
+   "reading": "いえ",
+   "meaning": "house; residence; dwelling",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "部屋",
+   "reading": "へや",
+   "meaning": "room; chamber",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "店",
+   "reading": "みせ",
+   "meaning": "store; shop; establishment",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "駅",
+   "reading": "えき",
+   "meaning": "railway station; train station",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "病院",
+   "reading": "びょういん",
+   "meaning": "hospital; clinic; doctor's office",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "銀行",
+   "reading": "ぎんこう",
+   "meaning": "bank; banking institution",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "会社",
+   "reading": "かいしゃ",
+   "meaning": "company; corporation; firm",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "国",
+   "reading": "くに",
+   "meaning": "country; state",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "道",
+   "reading": "みち",
+   "meaning": "road; path; street",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "本",
+   "reading": "ほん",
+   "meaning": "book; volume; script",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "机",
+   "reading": "つくえ",
+   "meaning": "desk",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "椅子",
+   "reading": "いす",
+   "meaning": "chair; seat; stool",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "窓",
+   "reading": "まど",
+   "meaning": "window",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "門",
+   "reading": "もん",
+   "meaning": "gate",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "電話",
+   "reading": "でんわ",
+   "meaning": "telephone call; phone call",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "新聞",
+   "reading": "しんぶん",
+   "meaning": "newspaper",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "手紙",
+   "reading": "てがみ",
+   "meaning": "letter; note",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "写真",
+   "reading": "しゃしん",
+   "meaning": "photograph; photo; picture",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "映画",
+   "reading": "えいが",
+   "meaning": "movie; film; motion picture",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "音楽",
+   "reading": "おんがく",
+   "meaning": "music",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "お金",
+   "reading": "おかね",
+   "meaning": "money",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "仕事",
+   "reading": "しごと",
+   "meaning": "work; job; labor",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "電車",
+   "reading": "でんしゃ",
+   "meaning": "train; electric train",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "車",
+   "reading": "くるま",
+   "meaning": "car; automobile; vehicle",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "自転車",
+   "reading": "じてんしゃ",
+   "meaning": "bicycle; bike",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "テレビ",
+   "reading": "テレビ",
+   "meaning": "television; TV",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "ドア",
+   "reading": "ドア",
+   "meaning": "door",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "カメラ",
+   "reading": "カメラ",
+   "meaning": "camera",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "水",
+   "reading": "みず",
+   "meaning": "water (esp. cool or cold)",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "お茶",
+   "reading": "おちゃ",
+   "meaning": "tea (esp. green or barley)",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "肉",
+   "reading": "にく",
+   "meaning": "flesh",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "魚",
+   "reading": "さかな",
+   "meaning": "fish",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "野菜",
+   "reading": "やさい",
+   "meaning": "vegetable",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "果物",
+   "reading": "くだもの",
+   "meaning": "fruit",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "ご飯",
+   "reading": "ごはん",
+   "meaning": "cooked rice",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "卵",
+   "reading": "たまご",
+   "meaning": "eggs; egg; spawn",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "パン",
+   "reading": "パン",
+   "meaning": "bread; (sweet) pastry",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "コーヒー",
+   "reading": "コーヒー",
+   "meaning": "coffee",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "山",
+   "reading": "やま",
+   "meaning": "mountain; hill",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "川",
+   "reading": "かわ",
+   "meaning": "river; stream",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "海",
+   "reading": "うみ",
+   "meaning": "sea; ocean; waters",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "空",
+   "reading": "そら",
+   "meaning": "sky; the air; the heavens",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "雨",
+   "reading": "あめ",
+   "meaning": "rain",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "天気",
+   "reading": "てんき",
+   "meaning": "weather",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "花",
+   "reading": "はな",
+   "meaning": "flower; blossom; bloom",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "犬",
+   "reading": "いぬ",
+   "meaning": "dog (Canis (lupus) familiaris); canine",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "猫",
+   "reading": "ねこ",
+   "meaning": "cat (esp. the domestic cat, Felis catus); feline",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "鳥",
+   "reading": "とり",
+   "meaning": "bird",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "手",
+   "reading": "て",
+   "meaning": "hand; arm",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "足",
+   "reading": "あし",
+   "meaning": "foot; paw; arm (of an octopus, squid, etc.)",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "目",
+   "reading": "め",
+   "meaning": "eye; eyeball",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "耳",
+   "reading": "みみ",
+   "meaning": "ear",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "口",
+   "reading": "くち",
+   "meaning": "mouth",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "頭",
+   "reading": "あたま",
+   "meaning": "head",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "体",
+   "reading": "からだ",
+   "meaning": "body",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "言葉",
+   "reading": "ことば",
+   "meaning": "language; dialect",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "日本",
+   "reading": "にほん",
+   "meaning": "Japan",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "日本語",
+   "reading": "にほんご",
+   "meaning": "Japanese (language)",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "英語",
+   "reading": "えいご",
+   "meaning": "English (language)",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "東",
+   "reading": "ひがし",
+   "meaning": "east",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "西",
+   "reading": "にし",
+   "meaning": "west",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "南",
+   "reading": "みなみ",
+   "meaning": "south",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "北",
+   "reading": "きた",
+   "meaning": "north",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "右",
+   "reading": "みぎ",
+   "meaning": "right; right-hand side",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "左",
+   "reading": "ひだり",
+   "meaning": "left; left-hand side",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "上",
+   "reading": "うえ",
+   "meaning": "above; over; up",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "下",
+   "reading": "した",
+   "meaning": "below; down; under",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "中",
+   "reading": "なか",
+   "meaning": "inside; interior",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "外",
+   "reading": "そと",
+   "meaning": "outside; exterior",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "前",
+   "reading": "まえ",
+   "meaning": "in front (of); before (e.g. a building)",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "後ろ",
+   "reading": "うしろ",
+   "meaning": "back; behind; rear",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "今日",
+   "reading": "きょう",
+   "meaning": "today; this day",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "明日",
+   "reading": "あした",
+   "meaning": "tomorrow",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "昨日",
+   "reading": "きのう",
+   "meaning": "yesterday",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "毎日",
+   "reading": "まいにち",
+   "meaning": "every day; daily",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "朝",
+   "reading": "あさ",
+   "meaning": "morning",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "昼",
+   "reading": "ひる",
+   "meaning": "noon; midday",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "夜",
+   "reading": "よる",
+   "meaning": "night; evening",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "今",
+   "reading": "いま",
+   "meaning": "now; the present time; just now",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "時間",
+   "reading": "じかん",
+   "meaning": "time",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "年",
+   "reading": "とし",
+   "meaning": "year",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "月",
+   "reading": "つき",
+   "meaning": "Moon",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "一",
+   "reading": "いち",
+   "meaning": "one; 1",
+   "part_of_speech": "number",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "二",
+   "reading": "に",
+   "meaning": "two; 2",
+   "part_of_speech": "number",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "三",
+   "reading": "さん",
+   "meaning": "three; 3",
+   "part_of_speech": "number",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "十",
+   "reading": "じゅう",
+   "meaning": "ten; 10",
+   "part_of_speech": "number",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "百",
+   "reading": "ひゃく",
+   "meaning": "hundred; 100",
+   "part_of_speech": "number",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "千",
+   "reading": "せん",
+   "meaning": "thousand; 1,000",
+   "part_of_speech": "number",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "万",
+   "reading": "まん",
+   "meaning": "10,000; ten thousand",
+   "part_of_speech": "number",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "円",
+   "reading": "えん",
+   "meaning": "yen (currency of Japan)",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "食べる",
+   "reading": "たべる",
+   "meaning": "to eat",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "飲む",
+   "reading": "のむ",
+   "meaning": "to drink; to swallow; to take (medicine)",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "行く",
+   "reading": "いく",
+   "meaning": "to go; to move (towards); to head (towards)",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "来る",
+   "reading": "くる",
+   "meaning": "to come (spatially or temporally); to approach; to arrive",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "帰る",
+   "reading": "かえる",
+   "meaning": "to return; to come home; to go home",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "見る",
+   "reading": "みる",
+   "meaning": "to see; to look; to watch",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "聞く",
+   "reading": "きく",
+   "meaning": "to hear",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "読む",
+   "reading": "よむ",
+   "meaning": "to read",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "書く",
+   "reading": "かく",
+   "meaning": "to write; to compose; to pen",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "話す",
+   "reading": "はなす",
+   "meaning": "to talk; to speak; to converse",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "買う",
+   "reading": "かう",
+   "meaning": "to buy; to purchase",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "会う",
+   "reading": "あう",
+   "meaning": "to meet; to encounter; to see",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "待つ",
+   "reading": "まつ",
+   "meaning": "to wait",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "起きる",
+   "reading": "おきる",
+   "meaning": "to get up; to rise; to blaze up (fire)",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "寝る",
+   "reading": "ねる",
+   "meaning": "to sleep (lying down)",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "休む",
+   "reading": "やすむ",
+   "meaning": "to be absent; to take a day off",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "働く",
+   "reading": "はたらく",
+   "meaning": "to work; to labor; to labour",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "分かる",
+   "reading": "わかる",
+   "meaning": "to understand; to comprehend; to grasp",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "住む",
+   "reading": "すむ",
+   "meaning": "to live (of humans); to reside; to inhabit",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "入る",
+   "reading": "はいる",
+   "meaning": "to enter; to come in; to go in",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "出る",
+   "reading": "でる",
+   "meaning": "to leave; to exit; to go out",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "歩く",
+   "reading": "あるく",
+   "meaning": "to walk",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "泳ぐ",
+   "reading": "およぐ",
+   "meaning": "to swim",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "遊ぶ",
+   "reading": "あそぶ",
+   "meaning": "to play (games, sports); to enjoy oneself; to have a good time",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "作る",
+   "reading": "つくる",
+   "meaning": "to make; to produce; to manufacture",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "教える",
+   "reading": "おしえる",
+   "meaning": "to teach; to instruct",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "習う",
+   "reading": "ならう",
+   "meaning": "to take lessons in; to be taught; to learn (from a teacher)",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "開ける",
+   "reading": "あける",
+   "meaning": "to open (a door, etc.); to unwrap (e.g. parcel, package); to unlock",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "使う",
+   "reading": "つかう",
+   "meaning": "to use (a tool, method, etc.); to make use of; to put to use",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "立つ",
+   "reading": "たつ",
+   "meaning": "to stand (up); to rise; to get to one's feet",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "言う",
+   "reading": "いう",
+   "meaning": "to say; to utter; to declare",
+   "part_of_speech": "verb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "勉強",
+   "reading": "べんきょう",
+   "meaning": "study",
+   "part_of_speech": "noun",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "大きい",
+   "reading": "おおきい",
+   "meaning": "big; large; great",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "小さい",
+   "reading": "ちいさい",
+   "meaning": "small; little; tiny",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "新しい",
+   "reading": "あたらしい",
+   "meaning": "new; novel; fresh",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "古い",
+   "reading": "ふるい",
+   "meaning": "old; aged; ancient",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "高い",
+   "reading": "たかい",
+   "meaning": "high; tall",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "安い",
+   "reading": "やすい",
+   "meaning": "cheap; inexpensive",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "長い",
+   "reading": "ながい",
+   "meaning": "long (distance, length)",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "短い",
+   "reading": "みじかい",
+   "meaning": "short",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "暑い",
+   "reading": "あつい",
+   "meaning": "hot; warm; sultry",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "寒い",
+   "reading": "さむい",
+   "meaning": "cold (e.g. weather)",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "白い",
+   "reading": "しろい",
+   "meaning": "white",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "黒い",
+   "reading": "くろい",
+   "meaning": "black",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "赤い",
+   "reading": "あかい",
+   "meaning": "red; crimson; scarlet",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "青い",
+   "reading": "あおい",
+   "meaning": "blue; azure",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "早い",
+   "reading": "はやい",
+   "meaning": "fast; quick; rapid",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "多い",
+   "reading": "おおい",
+   "meaning": "many; numerous; a lot",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "楽しい",
+   "reading": "たのしい",
+   "meaning": "enjoyable; fun; pleasant",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "難しい",
+   "reading": "むずかしい",
+   "meaning": "difficult; hard; troublesome",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "忙しい",
+   "reading": "いそがしい",
+   "meaning": "busy; occupied; hectic",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "元気",
+   "reading": "げんき",
+   "meaning": "lively; full of spirit; energetic",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "静か",
+   "reading": "しずか",
+   "meaning": "quiet; silent",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "有名",
+   "reading": "ゆうめい",
+   "meaning": "famous; well-known",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "好き",
+   "reading": "すき",
+   "meaning": "liking; being fond of; to one's liking",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "上手",
+   "reading": "じょうず",
+   "meaning": "skillful; skilled; proficient",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "便利",
+   "reading": "べんり",
+   "meaning": "convenient; handy; useful",
+   "part_of_speech": "adjective",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "少し",
+   "reading": "すこし",
+   "meaning": "a little; a bit; a small amount",
+   "part_of_speech": "adverb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "とても",
+   "reading": "とても",
+   "meaning": "very; awfully; exceedingly",
+   "part_of_speech": "adverb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "もう",
+   "reading": "もう",
+   "meaning": "already; yet; by now",
+   "part_of_speech": "adverb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  },
+  {
+   "word": "まだ",
+   "reading": "まだ",
+   "meaning": "still; as yet; only",
+   "part_of_speech": "adverb",
+   "jlpt_level": "N5",
+   "example_jp": null,
+   "example_en": null
+  }
+ ],
+ "kanji": [
+  {
+   "character": "日",
+   "on_yomi": [
+    "ニチ",
+    "ジツ"
+   ],
+   "kun_yomi": [
+    "ひ",
+    "-び",
+    "-か"
+   ],
+   "meaning": [
+    "day",
+    "sun",
+    "Japan",
+    "counter for days"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 1,
+   "example_word": "日本 (にほん)",
+   "example_sentence": null
+  },
+  {
+   "character": "一",
+   "on_yomi": [
+    "イチ",
+    "イツ"
+   ],
+   "kun_yomi": [
+    "ひと-",
+    "ひと.つ"
+   ],
+   "meaning": [
+    "one",
+    "one radical (no.1)"
+   ],
+   "stroke_count": 1,
+   "jlpt_level": "N5",
+   "freq_rank": 2,
+   "example_word": "一 (いち)",
+   "example_sentence": null
+  },
+  {
+   "character": "国",
+   "on_yomi": [
+    "コク"
+   ],
+   "kun_yomi": [
+    "くに"
+   ],
+   "meaning": [
+    "country"
+   ],
+   "stroke_count": 8,
+   "jlpt_level": "N5",
+   "freq_rank": 3,
+   "example_word": "国 (くに)",
+   "example_sentence": null
+  },
+  {
+   "character": "会",
+   "on_yomi": [
+    "カイ",
+    "エ"
+   ],
+   "kun_yomi": [
+    "あ.う",
+    "あ.わせる",
+    "あつ.まる"
+   ],
+   "meaning": [
+    "meeting",
+    "meet",
+    "party",
+    "association",
+    "interview",
+    "join"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 4,
+   "example_word": "会社 (かいしゃ)",
+   "example_sentence": null
+  },
+  {
+   "character": "人",
+   "on_yomi": [
+    "ジン",
+    "ニン"
+   ],
+   "kun_yomi": [
+    "ひと",
+    "-り",
+    "-と"
+   ],
+   "meaning": [
+    "person"
+   ],
+   "stroke_count": 2,
+   "jlpt_level": "N5",
+   "freq_rank": 5,
+   "example_word": "人 (ひと)",
+   "example_sentence": null
+  },
+  {
+   "character": "年",
+   "on_yomi": [
+    "ネン"
+   ],
+   "kun_yomi": [
+    "とし"
+   ],
+   "meaning": [
+    "year",
+    "counter for years"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 6,
+   "example_word": "年 (とし)",
+   "example_sentence": null
+  },
+  {
+   "character": "大",
+   "on_yomi": [
+    "ダイ",
+    "タイ"
+   ],
+   "kun_yomi": [
+    "おお-",
+    "おお.きい",
+    "-おお.いに"
+   ],
+   "meaning": [
+    "large",
+    "big"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 7,
+   "example_word": "大学 (だいがく)",
+   "example_sentence": null
+  },
+  {
+   "character": "十",
+   "on_yomi": [
+    "ジュウ",
+    "ジッ",
+    "ジュッ"
+   ],
+   "kun_yomi": [
+    "とお",
+    "と",
+    "そ"
+   ],
+   "meaning": [
+    "ten"
+   ],
+   "stroke_count": 2,
+   "jlpt_level": "N5",
+   "freq_rank": 8,
+   "example_word": "十 (じゅう)",
+   "example_sentence": null
+  },
+  {
+   "character": "二",
+   "on_yomi": [
+    "ニ",
+    "ジ"
+   ],
+   "kun_yomi": [
+    "ふた",
+    "ふた.つ",
+    "ふたたび"
+   ],
+   "meaning": [
+    "two",
+    "two radical (no. 7)"
+   ],
+   "stroke_count": 2,
+   "jlpt_level": "N5",
+   "freq_rank": 9,
+   "example_word": "二 (に)",
+   "example_sentence": null
+  },
+  {
+   "character": "本",
+   "on_yomi": [
+    "ホン"
+   ],
+   "kun_yomi": [
+    "もと"
+   ],
+   "meaning": [
+    "book",
+    "present",
+    "main",
+    "origin",
+    "true",
+    "real",
+    "counter for long cylindrical things"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 10,
+   "example_word": "本 (ほん)",
+   "example_sentence": null
+  },
+  {
+   "character": "中",
+   "on_yomi": [
+    "チュウ"
+   ],
+   "kun_yomi": [
+    "なか",
+    "うち",
+    "あた.る"
+   ],
+   "meaning": [
+    "in",
+    "inside",
+    "middle",
+    "mean",
+    "center"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 11,
+   "example_word": "中 (なか)",
+   "example_sentence": null
+  },
+  {
+   "character": "長",
+   "on_yomi": [
+    "チョウ"
+   ],
+   "kun_yomi": [
+    "なが.い",
+    "おさ"
+   ],
+   "meaning": [
+    "long",
+    "leader",
+    "superior",
+    "senior"
+   ],
+   "stroke_count": 8,
+   "jlpt_level": "N5",
+   "freq_rank": 12,
+   "example_word": "長い (ながい)",
+   "example_sentence": null
+  },
+  {
+   "character": "出",
+   "on_yomi": [
+    "シュツ",
+    "スイ"
+   ],
+   "kun_yomi": [
+    "で.る",
+    "-で",
+    "だ.す",
+    "-だ.す",
+    "い.でる",
+    "い.だす"
+   ],
+   "meaning": [
+    "exit",
+    "leave",
+    "go out",
+    "come out",
+    "put out",
+    "protrude"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 13,
+   "example_word": "出る (でる)",
+   "example_sentence": null
+  },
+  {
+   "character": "三",
+   "on_yomi": [
+    "サン",
+    "ゾウ"
+   ],
+   "kun_yomi": [
+    "み",
+    "み.つ",
+    "みっ.つ"
+   ],
+   "meaning": [
+    "three"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 14,
+   "example_word": "三 (さん)",
+   "example_sentence": null
+  },
+  {
+   "character": "時",
+   "on_yomi": [
+    "ジ"
+   ],
+   "kun_yomi": [
+    "とき",
+    "-どき"
+   ],
+   "meaning": [
+    "time",
+    "hour"
+   ],
+   "stroke_count": 10,
+   "jlpt_level": "N5",
+   "freq_rank": 16,
+   "example_word": "時間 (じかん)",
+   "example_sentence": null
+  },
+  {
+   "character": "行",
+   "on_yomi": [
+    "コウ",
+    "ギョウ",
+    "アン"
+   ],
+   "kun_yomi": [
+    "い.く",
+    "ゆ.く",
+    "-ゆ.き",
+    "-ゆき",
+    "-い.き",
+    "-いき",
+    "おこな.う",
+    "おこ.なう"
+   ],
+   "meaning": [
+    "going",
+    "journey",
+    "carry out",
+    "conduct",
+    "act",
+    "line",
+    "row",
+    "bank"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 20,
+   "example_word": "銀行 (ぎんこう)",
+   "example_sentence": null
+  },
+  {
+   "character": "社",
+   "on_yomi": [
+    "シャ"
+   ],
+   "kun_yomi": [
+    "やしろ"
+   ],
+   "meaning": [
+    "company",
+    "firm",
+    "office",
+    "association",
+    "shrine"
+   ],
+   "stroke_count": 7,
+   "jlpt_level": "N5",
+   "freq_rank": 21,
+   "example_word": "会社 (かいしゃ)",
+   "example_sentence": null
+  },
+  {
+   "character": "見",
+   "on_yomi": [
+    "ケン"
+   ],
+   "kun_yomi": [
+    "み.る",
+    "み.える",
+    "み.せる"
+   ],
+   "meaning": [
+    "see",
+    "hopes",
+    "chances",
+    "idea",
+    "opinion",
+    "look at",
+    "visible"
+   ],
+   "stroke_count": 7,
+   "jlpt_level": "N5",
+   "freq_rank": 22,
+   "example_word": "見る (みる)",
+   "example_sentence": null
+  },
+  {
+   "character": "月",
+   "on_yomi": [
+    "ゲツ",
+    "ガツ"
+   ],
+   "kun_yomi": [
+    "つき"
+   ],
+   "meaning": [
+    "month",
+    "moon"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 23,
+   "example_word": "月 (つき)",
+   "example_sentence": null
+  },
+  {
+   "character": "分",
+   "on_yomi": [
+    "ブン",
+    "フン",
+    "ブ"
+   ],
+   "kun_yomi": [
+    "わ.ける",
+    "わ.け",
+    "わ.かれる",
+    "わ.かる",
+    "わ.かつ"
+   ],
+   "meaning": [
+    "part",
+    "minute of time",
+    "segment",
+    "share",
+    "degree",
+    "one's lot",
+    "duty",
+    "understand",
+    "know",
+    "rate",
+    "1%",
+    "chances",
+    "shaku/100"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 24,
+   "example_word": "分かる (わかる)",
+   "example_sentence": null
+  },
+  {
+   "character": "後",
+   "on_yomi": [
+    "ゴ",
+    "コウ"
+   ],
+   "kun_yomi": [
+    "のち",
+    "うし.ろ",
+    "うしろ",
+    "あと",
+    "おく.れる"
+   ],
+   "meaning": [
+    "behind",
+    "back",
+    "later"
+   ],
+   "stroke_count": 9,
+   "jlpt_level": "N5",
+   "freq_rank": 26,
+   "example_word": "後ろ (うしろ)",
+   "example_sentence": null
+  },
+  {
+   "character": "前",
+   "on_yomi": [
+    "ゼン"
+   ],
+   "kun_yomi": [
+    "まえ",
+    "-まえ"
+   ],
+   "meaning": [
+    "in front",
+    "before"
+   ],
+   "stroke_count": 9,
+   "jlpt_level": "N5",
+   "freq_rank": 27,
+   "example_word": "名前 (なまえ)",
+   "example_sentence": null
+  },
+  {
+   "character": "生",
+   "on_yomi": [
+    "セイ",
+    "ショウ"
+   ],
+   "kun_yomi": [
+    "い.きる",
+    "い.かす",
+    "い.ける",
+    "う.まれる",
+    "うま.れる",
+    "う.まれ",
+    "うまれ",
+    "う.む",
+    "お.う",
+    "は.える",
+    "は.やす",
+    "き",
+    "なま",
+    "なま-",
+    "な.る",
+    "な.す",
+    "む.す",
+    "-う"
+   ],
+   "meaning": [
+    "life",
+    "genuine",
+    "birth"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 29,
+   "example_word": "先生 (せんせい)",
+   "example_sentence": null
+  },
+  {
+   "character": "五",
+   "on_yomi": [
+    "ゴ"
+   ],
+   "kun_yomi": [
+    "いつ",
+    "いつ.つ"
+   ],
+   "meaning": [
+    "five"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 31,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "間",
+   "on_yomi": [
+    "カン",
+    "ケン"
+   ],
+   "kun_yomi": [
+    "あいだ",
+    "ま",
+    "あい"
+   ],
+   "meaning": [
+    "interval",
+    "space"
+   ],
+   "stroke_count": 12,
+   "jlpt_level": "N5",
+   "freq_rank": 33,
+   "example_word": "時間 (じかん)",
+   "example_sentence": null
+  },
+  {
+   "character": "上",
+   "on_yomi": [
+    "ジョウ",
+    "ショウ",
+    "シャン"
+   ],
+   "kun_yomi": [
+    "うえ",
+    "-うえ",
+    "うわ-",
+    "かみ",
+    "あ.げる",
+    "-あ.げる",
+    "あ.がる",
+    "-あ.がる",
+    "あ.がり",
+    "-あ.がり",
+    "のぼ.る",
+    "のぼ.り",
+    "のぼ.せる",
+    "のぼ.す",
+    "たてまつ.る"
+   ],
+   "meaning": [
+    "above",
+    "up"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 35,
+   "example_word": "上 (うえ)",
+   "example_sentence": null
+  },
+  {
+   "character": "東",
+   "on_yomi": [
+    "トウ"
+   ],
+   "kun_yomi": [
+    "ひがし"
+   ],
+   "meaning": [
+    "east"
+   ],
+   "stroke_count": 8,
+   "jlpt_level": "N5",
+   "freq_rank": 37,
+   "example_word": "東 (ひがし)",
+   "example_sentence": null
+  },
+  {
+   "character": "四",
+   "on_yomi": [
+    "シ"
+   ],
+   "kun_yomi": [
+    "よ",
+    "よ.つ",
+    "よっ.つ",
+    "よん"
+   ],
+   "meaning": [
+    "four"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 47,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "今",
+   "on_yomi": [
+    "コン",
+    "キン"
+   ],
+   "kun_yomi": [
+    "いま"
+   ],
+   "meaning": [
+    "now"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 49,
+   "example_word": "今日 (きょう)",
+   "example_sentence": null
+  },
+  {
+   "character": "新",
+   "on_yomi": [
+    "シン"
+   ],
+   "kun_yomi": [
+    "あたら.しい",
+    "あら.た",
+    "あら-",
+    "にい-"
+   ],
+   "meaning": [
+    "new"
+   ],
+   "stroke_count": 13,
+   "jlpt_level": "N5",
+   "freq_rank": 51,
+   "example_word": "新聞 (しんぶん)",
+   "example_sentence": null
+  },
+  {
+   "character": "金",
+   "on_yomi": [
+    "キン",
+    "コン",
+    "ゴン"
+   ],
+   "kun_yomi": [
+    "かね",
+    "かな-",
+    "-がね"
+   ],
+   "meaning": [
+    "gold"
+   ],
+   "stroke_count": 8,
+   "jlpt_level": "N5",
+   "freq_rank": 53,
+   "example_word": "お金 (おかね)",
+   "example_sentence": null
+  },
+  {
+   "character": "九",
+   "on_yomi": [
+    "キュウ",
+    "ク"
+   ],
+   "kun_yomi": [
+    "ここの",
+    "ここの.つ"
+   ],
+   "meaning": [
+    "nine"
+   ],
+   "stroke_count": 2,
+   "jlpt_level": "N5",
+   "freq_rank": 55,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "入",
+   "on_yomi": [
+    "ニュウ",
+    "ジュ"
+   ],
+   "kun_yomi": [
+    "い.る",
+    "-い.る",
+    "-い.り",
+    "い.れる",
+    "-い.れ",
+    "はい.る"
+   ],
+   "meaning": [
+    "enter",
+    "insert"
+   ],
+   "stroke_count": 2,
+   "jlpt_level": "N5",
+   "freq_rank": 56,
+   "example_word": "入る (はいる)",
+   "example_sentence": null
+  },
+  {
+   "character": "立",
+   "on_yomi": [
+    "リツ",
+    "リュウ",
+    "リットル"
+   ],
+   "kun_yomi": [
+    "た.つ",
+    "-た.つ",
+    "た.ち-",
+    "た.てる",
+    "-た.てる",
+    "た.て-",
+    "たて-",
+    "-た.て",
+    "-だ.て",
+    "-だ.てる"
+   ],
+   "meaning": [
+    "stand up",
+    "rise",
+    "set up",
+    "erect"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 58,
+   "example_word": "立つ (たつ)",
+   "example_sentence": null
+  },
+  {
+   "character": "手",
+   "on_yomi": [
+    "シュ",
+    "ズ"
+   ],
+   "kun_yomi": [
+    "て",
+    "て-",
+    "-て",
+    "た-"
+   ],
+   "meaning": [
+    "hand"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 60,
+   "example_word": "手紙 (てがみ)",
+   "example_sentence": null
+  },
+  {
+   "character": "学",
+   "on_yomi": [
+    "ガク"
+   ],
+   "kun_yomi": [
+    "まな.ぶ"
+   ],
+   "meaning": [
+    "study",
+    "learning",
+    "science"
+   ],
+   "stroke_count": 8,
+   "jlpt_level": "N5",
+   "freq_rank": 63,
+   "example_word": "学生 (がくせい)",
+   "example_sentence": null
+  },
+  {
+   "character": "高",
+   "on_yomi": [
+    "コウ"
+   ],
+   "kun_yomi": [
+    "たか.い",
+    "たか",
+    "-だか",
+    "たか.まる",
+    "たか.める"
+   ],
+   "meaning": [
+    "tall",
+    "high",
+    "expensive"
+   ],
+   "stroke_count": 10,
+   "jlpt_level": "N5",
+   "freq_rank": 65,
+   "example_word": "高い (たかい)",
+   "example_sentence": null
+  },
+  {
+   "character": "円",
+   "on_yomi": [
+    "エン"
+   ],
+   "kun_yomi": [
+    "まる.い",
+    "まる",
+    "まど",
+    "まど.か",
+    "まろ.やか"
+   ],
+   "meaning": [
+    "circle",
+    "yen",
+    "round"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 69,
+   "example_word": "円 (えん)",
+   "example_sentence": null
+  },
+  {
+   "character": "子",
+   "on_yomi": [
+    "シ",
+    "ス",
+    "ツ"
+   ],
+   "kun_yomi": [
+    "こ",
+    "-こ",
+    "ね"
+   ],
+   "meaning": [
+    "child",
+    "sign of the rat",
+    "11PM-1AM",
+    "first sign of Chinese zodiac"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 72,
+   "example_word": "子供 (こども)",
+   "example_sentence": null
+  },
+  {
+   "character": "目",
+   "on_yomi": [
+    "モク",
+    "ボク"
+   ],
+   "kun_yomi": [
+    "め",
+    "-め",
+    "ま-"
+   ],
+   "meaning": [
+    "eye",
+    "class",
+    "look",
+    "insight",
+    "experience",
+    "care",
+    "favor"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 76,
+   "example_word": "目 (め)",
+   "example_sentence": null
+  },
+  {
+   "character": "外",
+   "on_yomi": [
+    "ガイ",
+    "ゲ"
+   ],
+   "kun_yomi": [
+    "そと",
+    "ほか",
+    "はず.す",
+    "はず.れる",
+    "と-"
+   ],
+   "meaning": [
+    "outside"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 81,
+   "example_word": "外 (そと)",
+   "example_sentence": null
+  },
+  {
+   "character": "言",
+   "on_yomi": [
+    "ゲン",
+    "ゴン"
+   ],
+   "kun_yomi": [
+    "い.う",
+    "こと"
+   ],
+   "meaning": [
+    "say",
+    "word"
+   ],
+   "stroke_count": 7,
+   "jlpt_level": "N5",
+   "freq_rank": 83,
+   "example_word": "言葉 (ことば)",
+   "example_sentence": null
+  },
+  {
+   "character": "八",
+   "on_yomi": [
+    "ハチ",
+    "ハツ"
+   ],
+   "kun_yomi": [
+    "や",
+    "や.つ",
+    "やっ.つ",
+    "よう"
+   ],
+   "meaning": [
+    "eight",
+    "eight radical (no. 12)"
+   ],
+   "stroke_count": 2,
+   "jlpt_level": "N5",
+   "freq_rank": 92,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "六",
+   "on_yomi": [
+    "ロク",
+    "リク"
+   ],
+   "kun_yomi": [
+    "む",
+    "む.つ",
+    "むっ.つ",
+    "むい"
+   ],
+   "meaning": [
+    "six"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 93,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "下",
+   "on_yomi": [
+    "カ",
+    "ゲ"
+   ],
+   "kun_yomi": [
+    "した",
+    "しも",
+    "もと",
+    "さ.げる",
+    "さ.がる",
+    "くだ.る",
+    "くだ.り",
+    "くだ.す",
+    "-くだ.す",
+    "くだ.さる",
+    "お.ろす",
+    "お.りる"
+   ],
+   "meaning": [
+    "below",
+    "down",
+    "descend",
+    "give",
+    "low",
+    "inferior"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 97,
+   "example_word": "下 (した)",
+   "example_sentence": null
+  },
+  {
+   "character": "来",
+   "on_yomi": [
+    "ライ",
+    "タイ"
+   ],
+   "kun_yomi": [
+    "く.る",
+    "きた.る",
+    "きた.す",
+    "き.たす",
+    "き.たる",
+    "き",
+    "こ"
+   ],
+   "meaning": [
+    "come",
+    "due",
+    "next",
+    "cause",
+    "become"
+   ],
+   "stroke_count": 7,
+   "jlpt_level": "N5",
+   "freq_rank": 102,
+   "example_word": "来る (くる)",
+   "example_sentence": null
+  },
+  {
+   "character": "気",
+   "on_yomi": [
+    "キ",
+    "ケ"
+   ],
+   "kun_yomi": [
+    "いき",
+    "き"
+   ],
+   "meaning": [
+    "spirit",
+    "mind",
+    "air",
+    "atmosphere",
+    "mood"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 113,
+   "example_word": "天気 (てんき)",
+   "example_sentence": null
+  },
+  {
+   "character": "小",
+   "on_yomi": [
+    "ショウ"
+   ],
+   "kun_yomi": [
+    "ちい.さい",
+    "こ-",
+    "お-",
+    "さ-"
+   ],
+   "meaning": [
+    "little",
+    "small"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 114,
+   "example_word": "小さい (ちいさい)",
+   "example_sentence": null
+  },
+  {
+   "character": "七",
+   "on_yomi": [
+    "シチ"
+   ],
+   "kun_yomi": [
+    "なな",
+    "なな.つ",
+    "なの"
+   ],
+   "meaning": [
+    "seven"
+   ],
+   "stroke_count": 2,
+   "jlpt_level": "N5",
+   "freq_rank": 115,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "山",
+   "on_yomi": [
+    "サン",
+    "セン"
+   ],
+   "kun_yomi": [
+    "やま"
+   ],
+   "meaning": [
+    "mountain"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 131,
+   "example_word": "山 (やま)",
+   "example_sentence": null
+  },
+  {
+   "character": "話",
+   "on_yomi": [
+    "ワ"
+   ],
+   "kun_yomi": [
+    "はな.す",
+    "はなし"
+   ],
+   "meaning": [
+    "tale",
+    "talk"
+   ],
+   "stroke_count": 13,
+   "jlpt_level": "N5",
+   "freq_rank": 134,
+   "example_word": "電話 (でんわ)",
+   "example_sentence": null
+  },
+  {
+   "character": "多",
+   "on_yomi": [
+    "タ"
+   ],
+   "kun_yomi": [
+    "おお.い",
+    "まさ.に",
+    "まさ.る"
+   ],
+   "meaning": [
+    "many",
+    "frequent",
+    "much"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 139,
+   "example_word": "多い (おおい)",
+   "example_sentence": null
+  },
+  {
+   "character": "安",
+   "on_yomi": [
+    "アン"
+   ],
+   "kun_yomi": [
+    "やす.い",
+    "やす.まる",
+    "やす",
+    "やす.らか"
+   ],
+   "meaning": [
+    "relax",
+    "cheap",
+    "low",
+    "quiet",
+    "rested",
+    "contented",
+    "peaceful"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 144,
+   "example_word": "安い (やすい)",
+   "example_sentence": null
+  },
+  {
+   "character": "女",
+   "on_yomi": [
+    "ジョ",
+    "ニョ",
+    "ニョウ"
+   ],
+   "kun_yomi": [
+    "おんな",
+    "め"
+   ],
+   "meaning": [
+    "woman",
+    "female"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 151,
+   "example_word": "女 (おんな)",
+   "example_sentence": null
+  },
+  {
+   "character": "北",
+   "on_yomi": [
+    "ホク"
+   ],
+   "kun_yomi": [
+    "きた"
+   ],
+   "meaning": [
+    "north"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 153,
+   "example_word": "北 (きた)",
+   "example_sentence": null
+  },
+  {
+   "character": "午",
+   "on_yomi": [
+    "ゴ"
+   ],
+   "kun_yomi": [
+    "うま"
+   ],
+   "meaning": [
+    "noon",
+    "sign of the horse",
+    "11AM-1PM",
+    "seventh sign of Chinese zodiac"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 154,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "百",
+   "on_yomi": [
+    "ヒャク",
+    "ビャク"
+   ],
+   "kun_yomi": [
+    "もも"
+   ],
+   "meaning": [
+    "hundred"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 163,
+   "example_word": "百 (ひゃく)",
+   "example_sentence": null
+  },
+  {
+   "character": "書",
+   "on_yomi": [
+    "ショ"
+   ],
+   "kun_yomi": [
+    "か.く",
+    "-が.き",
+    "-がき"
+   ],
+   "meaning": [
+    "write"
+   ],
+   "stroke_count": 10,
+   "jlpt_level": "N5",
+   "freq_rank": 169,
+   "example_word": "書く (かく)",
+   "example_sentence": null
+  },
+  {
+   "character": "先",
+   "on_yomi": [
+    "セン"
+   ],
+   "kun_yomi": [
+    "さき",
+    "ま.ず"
+   ],
+   "meaning": [
+    "before",
+    "ahead",
+    "previous",
+    "future",
+    "precedence"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 173,
+   "example_word": "先生 (せんせい)",
+   "example_sentence": null
+  },
+  {
+   "character": "名",
+   "on_yomi": [
+    "メイ",
+    "ミョウ"
+   ],
+   "kun_yomi": [
+    "な",
+    "-な"
+   ],
+   "meaning": [
+    "name",
+    "noted",
+    "distinguished",
+    "reputation"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 177,
+   "example_word": "名前 (なまえ)",
+   "example_sentence": null
+  },
+  {
+   "character": "川",
+   "on_yomi": [
+    "セン"
+   ],
+   "kun_yomi": [
+    "かわ"
+   ],
+   "meaning": [
+    "stream",
+    "river",
+    "river or three-stroke river radical (no. 47)"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 181,
+   "example_word": "川 (かわ)",
+   "example_sentence": null
+  },
+  {
+   "character": "千",
+   "on_yomi": [
+    "セン"
+   ],
+   "kun_yomi": [
+    "ち"
+   ],
+   "meaning": [
+    "thousand"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 195,
+   "example_word": "千 (せん)",
+   "example_sentence": null
+  },
+  {
+   "character": "道",
+   "on_yomi": [
+    "ドウ",
+    "トウ"
+   ],
+   "kun_yomi": [
+    "みち",
+    "いう"
+   ],
+   "meaning": [
+    "road-way",
+    "street",
+    "district",
+    "journey",
+    "course",
+    "moral",
+    "teachings"
+   ],
+   "stroke_count": 12,
+   "jlpt_level": "N5",
+   "freq_rank": 207,
+   "example_word": "道 (みち)",
+   "example_sentence": null
+  },
+  {
+   "character": "水",
+   "on_yomi": [
+    "スイ"
+   ],
+   "kun_yomi": [
+    "みず",
+    "みず-"
+   ],
+   "meaning": [
+    "water"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 223,
+   "example_word": "水 (みず)",
+   "example_sentence": null
+  },
+  {
+   "character": "半",
+   "on_yomi": [
+    "ハン"
+   ],
+   "kun_yomi": [
+    "なか.ば"
+   ],
+   "meaning": [
+    "half",
+    "middle",
+    "odd number",
+    "semi-",
+    "part-"
+   ],
+   "stroke_count": 5,
+   "jlpt_level": "N5",
+   "freq_rank": 224,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "男",
+   "on_yomi": [
+    "ダン",
+    "ナン"
+   ],
+   "kun_yomi": [
+    "おとこ",
+    "お"
+   ],
+   "meaning": [
+    "male"
+   ],
+   "stroke_count": 7,
+   "jlpt_level": "N5",
+   "freq_rank": 240,
+   "example_word": "男 (おとこ)",
+   "example_sentence": null
+  },
+  {
+   "character": "西",
+   "on_yomi": [
+    "セイ",
+    "サイ",
+    "ス"
+   ],
+   "kun_yomi": [
+    "にし"
+   ],
+   "meaning": [
+    "west",
+    "Spain"
+   ],
+   "stroke_count": 6,
+   "jlpt_level": "N5",
+   "freq_rank": 259,
+   "example_word": "西 (にし)",
+   "example_sentence": null
+  },
+  {
+   "character": "電",
+   "on_yomi": [
+    "デン"
+   ],
+   "kun_yomi": [],
+   "meaning": [
+    "electricity"
+   ],
+   "stroke_count": 13,
+   "jlpt_level": "N5",
+   "freq_rank": 268,
+   "example_word": "電話 (でんわ)",
+   "example_sentence": null
+  },
+  {
+   "character": "口",
+   "on_yomi": [
+    "コウ",
+    "ク"
+   ],
+   "kun_yomi": [
+    "くち"
+   ],
+   "meaning": [
+    "mouth"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 284,
+   "example_word": "口 (くち)",
+   "example_sentence": null
+  },
+  {
+   "character": "少",
+   "on_yomi": [
+    "ショウ"
+   ],
+   "kun_yomi": [
+    "すく.ない",
+    "すこ.し"
+   ],
+   "meaning": [
+    "few",
+    "little"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 287,
+   "example_word": "少し (すこし)",
+   "example_sentence": null
+  },
+  {
+   "character": "校",
+   "on_yomi": [
+    "コウ",
+    "キョウ"
+   ],
+   "kun_yomi": [],
+   "meaning": [
+    "exam",
+    "school",
+    "printing",
+    "proof",
+    "correction"
+   ],
+   "stroke_count": 10,
+   "jlpt_level": "N5",
+   "freq_rank": 294,
+   "example_word": "学校 (がっこう)",
+   "example_sentence": null
+  },
+  {
+   "character": "語",
+   "on_yomi": [
+    "ゴ"
+   ],
+   "kun_yomi": [
+    "かた.る",
+    "かた.らう"
+   ],
+   "meaning": [
+    "word",
+    "speech",
+    "language"
+   ],
+   "stroke_count": 14,
+   "jlpt_level": "N5",
+   "freq_rank": 301,
+   "example_word": "日本語 (にほんご)",
+   "example_sentence": null
+  },
+  {
+   "character": "空",
+   "on_yomi": [
+    "クウ"
+   ],
+   "kun_yomi": [
+    "そら",
+    "あ.く",
+    "あ.き",
+    "あ.ける",
+    "から",
+    "す.く",
+    "す.かす",
+    "むな.しい"
+   ],
+   "meaning": [
+    "empty",
+    "sky",
+    "void",
+    "vacant",
+    "vacuum"
+   ],
+   "stroke_count": 8,
+   "jlpt_level": "N5",
+   "freq_rank": 304,
+   "example_word": "空 (そら)",
+   "example_sentence": null
+  },
+  {
+   "character": "土",
+   "on_yomi": [
+    "ド",
+    "ト"
+   ],
+   "kun_yomi": [
+    "つち"
+   ],
+   "meaning": [
+    "soil",
+    "earth",
+    "ground",
+    "Turkey"
+   ],
+   "stroke_count": 3,
+   "jlpt_level": "N5",
+   "freq_rank": 307,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "木",
+   "on_yomi": [
+    "ボク",
+    "モク"
+   ],
+   "kun_yomi": [
+    "き",
+    "こ-"
+   ],
+   "meaning": [
+    "tree",
+    "wood"
+   ],
+   "stroke_count": 4,
+   "jlpt_level": "N5",
+   "freq_rank": 317,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "聞",
+   "on_yomi": [
+    "ブン",
+    "モン"
+   ],
+   "kun_yomi": [
+    "き.く",
+    "き.こえる"
+   ],
+   "meaning": [
+    "hear",
+    "ask",
+    "listen"
+   ],
+   "stroke_count": 14,
+   "jlpt_level": "N5",
+   "freq_rank": 319,
+   "example_word": "新聞 (しんぶん)",
+   "example_sentence": null
+  },
+  {
+   "character": "食",
+   "on_yomi": [
+    "ショク",
+    "ジキ"
+   ],
+   "kun_yomi": [
+    "く.う",
+    "く.らう",
+    "た.べる",
+    "は.む"
+   ],
+   "meaning": [
+    "eat",
+    "food"
+   ],
+   "stroke_count": 9,
+   "jlpt_level": "N5",
+   "freq_rank": 328,
+   "example_word": "食べる (たべる)",
+   "example_sentence": null
+  },
+  {
+   "character": "車",
+   "on_yomi": [
+    "シャ"
+   ],
+   "kun_yomi": [
+    "くるま"
+   ],
+   "meaning": [
+    "car"
+   ],
+   "stroke_count": 7,
+   "jlpt_level": "N5",
+   "freq_rank": 333,
+   "example_word": "電車 (でんしゃ)",
+   "example_sentence": null
+  },
+  {
+   "character": "何",
+   "on_yomi": [
+    "カ"
+   ],
+   "kun_yomi": [
+    "なに",
+    "なん",
+    "なに-",
+    "なん-"
+   ],
+   "meaning": [
+    "what"
+   ],
+   "stroke_count": 7,
+   "jlpt_level": "N5",
+   "freq_rank": 340,
+   "example_word": null,
+   "example_sentence": null
+  },
+  {
+   "character": "南",
+   "on_yomi": [
+    "ナン",
+    "ナ"
+   ],
+   "kun_yomi": [
+    "みなみ"
+   ],
+   "meaning": [
+    "south"
+   ],
+   "stroke_count": 9,
+   "jlpt_level": "N5",
+   "freq_rank": 341,
+   "example_word": "南 (みなみ)",
+   "example_sentence": null
+  }
+ ]
+}

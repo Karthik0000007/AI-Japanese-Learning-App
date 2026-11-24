@@ -2,6 +2,7 @@
 from enum import Enum
 from typing import Optional
 
+from sqlalchemy import UniqueConstraint
 from sqlmodel import Field, SQLModel
 
 
@@ -17,6 +18,8 @@ class Vocab(SQLModel, table=True):
     """One Japanese vocabulary item seeded from JMdict."""
 
     __tablename__ = "vocab"
+    # One row per (word, reading): makes re-seeding idempotent (migration 0005)
+    __table_args__ = (UniqueConstraint("word", "reading", name="uq_vocab_word_reading"),)
 
     id: Optional[int] = Field(default=None, primary_key=True)
     word: str = Field(index=True)           # Surface form, e.g. 食べる
