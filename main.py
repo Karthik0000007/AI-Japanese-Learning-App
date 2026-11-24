@@ -23,7 +23,8 @@ from fastapi.staticfiles import StaticFiles
 
 from config import settings
 from database.db import engine
-from routers import cards, health, kanji, progress, settings as settings_router, speech, tts, tutor, vocab
+from routers import cards, health, kanji, progress, speech, tts, tutor, vocab
+from routers import settings as settings_router
 
 logging.basicConfig(
     level=settings.log_level.upper(),
@@ -67,8 +68,8 @@ async def lifespan(app: FastAPI):
         sys.exit(1)
 
     # 3. Warn about optional AI dependencies
-    from core.tutor import check_ollama_health
     from core.tts_piper import check_piper_available
+    from core.tutor import check_ollama_health
     from core.whisper import check_whisper_available
 
     if not await check_ollama_health():
@@ -82,19 +83,17 @@ async def lifespan(app: FastAPI):
 
     if not check_piper_available():
         log.warning(
-            "Piper TTS binary or model not found. "
+            "Japanese TTS backend is unavailable. "
             "Audio pronunciation will be unavailable. "
-            "Run: python tools/setup.py"
+            "Install the TTS dependencies and restart the app."
         )
     else:
-        log.info("Piper TTS OK")
+        log.info("Japanese TTS OK")
 
     if not check_whisper_available():
         log.warning(
-            "Whisper model '%s' not downloaded yet. "
-            "Speech-to-text will work but the first transcription will be slower (model downloading). "
-            "You can pre-download by running: python -c 'import whisper; whisper.load_model(\"%s\")'",
-            settings.whisper_model,
+            "Whisper speech-to-text is unavailable. "
+            "Install the Whisper dependencies and download model '%s' to enable microphone transcription.",
             settings.whisper_model,
         )
     else:
@@ -122,7 +121,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Offline AI Japanese Language Trainer",
     description=(
-        "JLPT-ordered spaced-repetition tutor with LLaMA3.1 70B AI tutor "
+        "JLPT-ordered spaced-repetition tutor with a local Ollama AI tutor "
         "and Piper offline TTS. Fully local — no internet required during use."
     ),
     version="1.0.0",

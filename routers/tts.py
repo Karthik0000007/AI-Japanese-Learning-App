@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import Response
 from sqlmodel import SQLModel
 
-from core.tts_piper import TTSError, synthesize
+from core.tts_piper import TTS_NOT_INSTALLED, TTSError, check_tts_installed, synthesize
 
 router = APIRouter(prefix="/api/tts", tags=["tts"])
 
@@ -20,6 +20,9 @@ async def synthesize_speech(payload: TTSRequest) -> Response:
     Returns audio/wav bytes directly — suitable for
     new Audio(URL.createObjectURL(blob)) in the frontend.
     """
+    if not check_tts_installed():
+        raise HTTPException(status_code=503, detail=TTS_NOT_INSTALLED)
+
     text = payload.text.strip()
     if not text:
         raise HTTPException(status_code=400, detail="text must not be empty.")
