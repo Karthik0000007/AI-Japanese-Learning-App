@@ -1,11 +1,11 @@
 /**
  * static/js/views/Dashboard.js — Home screen with due-count, streak.
  */
-const { ref, onMounted } = Vue;
-
 const DashboardView = {
   name: "Dashboard",
   setup() {
+    const { ref, onMounted } = Vue;
+
     const due     = ref(0);
     const newCards = ref(0);
     const streak  = ref(0);
@@ -23,7 +23,10 @@ const DashboardView = {
         const prog    = await progressRes.json();
         due.value     = dueData.length;
         streak.value  = prog.streak_days ?? 0;
-        levels.value  = prog.level_stats ?? [];
+        // API sends new/young/mature/total; "mastered" = mature, "seen" = young + mature
+        levels.value  = (prog.level_stats ?? []).map((s) => ({
+          level: s.level, mastered_count: s.mature, seen_count: s.young + s.mature,
+        }));
 
         const newRes = await fetch("/api/cards/new");
         const newData = await newRes.json();

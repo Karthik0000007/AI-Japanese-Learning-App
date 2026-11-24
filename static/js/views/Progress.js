@@ -16,10 +16,14 @@ const ProgressView = {
       loading.value = true;
       const res  = await fetch("/api/progress");
       const data = await res.json();
-      streak.value   = data.streak_days    ?? 0;
-      accuracy.value = data.accuracy_pct   ?? 0;
-      levels.value   = data.level_stats    ?? [];
-      forecast.value = data.weekly_forecast ?? [];
+      // Map the API's field names (models/srs.py ProgressResponse) to what the template shows.
+      // "Mastered" = mature cards (interval >= 21 days); "seen" = young + mature.
+      streak.value   = data.streak_days ?? 0;
+      accuracy.value = Math.round((data.all_time_accuracy ?? 0) * 100);
+      levels.value   = (data.level_stats ?? []).map((s) => ({
+        level: s.level, mastered_count: s.mature, seen_count: s.young + s.mature, total_count: s.total,
+      }));
+      forecast.value = (data.weekly_forecast ?? []).map((d) => ({ date: d.date, due_count: d.count }));
       loading.value  = false;
     }
 
