@@ -1,5 +1,5 @@
 """
-core/tutor.py — LLaMA3.1 70B tutor via Ollama HTTP streaming API.
+core/tutor.py — AI tutor via Ollama HTTP streaming API (default model: llama3.1:8b).
 
 Streams text tokens as an async generator.  FastAPI wraps this in a
 StreamingResponse with Content-Type: text/event-stream.
@@ -21,6 +21,8 @@ import httpx
 
 from config import settings
 from core.language_detect import detect_language
+
+OLLAMA_CONNECT_TIMEOUT = 5.0  # seconds; keeps health checks and failed connects fast
 
 
 class TutorMode(str, Enum):
@@ -160,7 +162,9 @@ async def stream_response(
     japanese_sentence_end_chars = "。！？\n"
     english_sentence_end_chars = ".!?\n"
 
-    async with httpx.AsyncClient(timeout=None) as client:
+    # No read timeout (a big model can pause between tokens), but never wait
+    # more than a few seconds just to connect.
+    async with httpx.AsyncClient(timeout=httpx.Timeout(None, connect=OLLAMA_CONNECT_TIMEOUT)) as client:
         try:
             async with client.stream(
                 "POST",
@@ -232,12 +236,12 @@ async def stream_response(
 async def check_ollama_health() -> bool:
     """Return True if Ollama is reachable and the configured model is available."""
     try:
-        async with httpx.AsyncClient(timeout=5.0) as client:
+        async with httpx.AsyncClient(timeout=OLLAMA_CONNECT_TIMEOUT) as client:
             resp = await client.get(f"{settings.ollama_base_url}/api/tags")
             resp.raise_for_status()
             data = resp.json()
             models = [m.get("name", "") for m in data.get("models", [])]
-            # Accept partial match (e.g. "llama3.1:70b" matches "llama3.1:70b-instruct-q4")
+            # Accept partial match (e.g. "llama3.1:8b" matches "llama3.1:8b-instruct-q4")
             return any(settings.ollama_model in m for m in models)
     except Exception:
         return False

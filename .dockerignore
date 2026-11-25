@@ -1,0 +1,32 @@
+# Keep the image small and free of secrets
+.git
+.gitignore
+.venv
+venv
+.pixi
+**/__pycache__
+**/*.py[cod]
+.pytest_cache
+.ruff_cache
+.vscode
+.idea
+
+# Secrets: configuration comes from docker-compose.yml environment variables
+.env
+*.env
+!.env.example
+
+# Large local files not needed at runtime
+model/
+console.txt
+plan.txt
+*.md
+!static/vendor/VERSIONS.md
+data/*
+!data/sample_n5.json
+
+# Dev-only
+tests/
+pixi.lock
+Dockerfile
+docker-compose.yml

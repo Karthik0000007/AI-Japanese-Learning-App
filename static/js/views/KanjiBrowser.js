@@ -15,6 +15,8 @@ const KanjiBrowserView = {
     const loading  = ref(false);
     const selected = ref(null);  // modal
     let debounce   = null;
+    const services = ref(null);  // utils/health.js; null until /api/health answers
+    const ttsOff   = () => services.value?.tts === false;
 
     async function load() {
       loading.value = true;
@@ -34,7 +36,10 @@ const KanjiBrowserView = {
     }
 
     watch(level, () => { page.value = 1; load(); });
-    onMounted(load);
+    onMounted(() => {
+      load();
+      fetchServiceStatus().then((s) => { services.value = s; });
+    });
 
     const totalPages = () => Math.ceil(total.value / pageSize);
     const prev = () => { if (page.value > 1) { page.value--; load(); } };
@@ -43,22 +48,41 @@ const KanjiBrowserView = {
     function openModal(k) { selected.value = k; }
     function closeModal()  { selected.value = null; }
 
-    async function playTTS(character) {
+    async function playTTS(kanji) {
+      if (ttsOff()) return;
+      const text = firstReadableKanjiText(kanji);
+      if (!text) {
+        console.error("No readable text available for kanji TTS");
+        return;
+      }
+
       try {
         const res = await fetch("/api/tts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: character }),
+          body: JSON.stringify({ text }),
         });
-        if (!res.ok) return;
+        if (!res.ok) {
+          console.error("TTS request failed:", res.status, res.statusText);
+          return;
+        }
         const blob = await res.blob();
-        new Audio(URL.createObjectURL(blob)).play();
-      } catch {}
+        if (!blob || blob.size === 0) {
+          console.error("TTS returned empty blob");
+          return;
+        }
+        const audio = new Audio(URL.createObjectURL(blob));
+        audio.onerror = () => console.error("Audio playback error");
+        audio.play().catch(err => console.error("Audio play failed:", err));
+      } catch (err) {
+        console.error("TTS error:", err);
+      }
     }
 
     return {
       items, total, page, search, level, loading, selected,
       onSearchInput, prev, next, totalPages, openModal, closeModal, playTTS,
+      services, ttsOff,
     };
   },
 
@@ -102,8 +126,11 @@ const KanjiBrowserView = {
       <div class="modal-box">
         <div class="flex-row" style="justify-content:space-between; align-items:flex-start">
           <div class="modal-kanji">{{ selected.character }}</div>
-          <button @click="playTTS(selected.character)" style="background:var(--surface2);color:var(--text);border:1px solid var(--border)">🔊</button>
+          <button @click="playTTS(selected)" :disabled="ttsOff()"
+                  :title="ttsOff() ? 'Japanese audio is off' : 'Listen'"
+                  style="background:var(--surface2);color:var(--text);border:1px solid var(--border)">🔊</button>
         </div>
+        <service-notice class="mt-1" :status="services" :show="['tts']"></service-notice>
         <div class="mt-1">
           <span v-if="selected.jlpt_level" :class="['pill', 'pill-' + selected.jlpt_level]">{{ selected.jlpt_level }}</span>
           <span class="muted" style="margin-left:0.5rem; font-size:0.85rem">{{ selected.stroke_count }} strokes</span>

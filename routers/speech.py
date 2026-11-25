@@ -2,7 +2,12 @@
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from sqlmodel import SQLModel
 
-from core.whisper import WhisperError, transcribe_audio
+from core.whisper import WhisperError, check_whisper_available, transcribe_audio
+
+SPEECH_UNAVAILABLE = (
+    "Speech-to-text is not installed on this server. "
+    "Install it with: pip install -r requirements-speech.txt"
+)
 
 router = APIRouter(prefix="/api/speech-to-text", tags=["speech"])
 
@@ -41,6 +46,9 @@ async def transcribe_speech(
         HTTPException 400: If audio is missing or corrupt.
         HTTPException 503: If Whisper is unavailable or transcription fails.
     """
+    if not check_whisper_available():
+        raise HTTPException(status_code=503, detail=SPEECH_UNAVAILABLE)
+
     if not audio or not audio.filename:
         raise HTTPException(status_code=400, detail="audio file is required.")
 

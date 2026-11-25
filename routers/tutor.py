@@ -5,17 +5,19 @@ POST /api/tutor/chat
   Request body: { "message": str, "mode": TutorMode, "level": str }
   Response: text/event-stream — each event is data: {"token": "...", "language": "ja"|"en", ...}\n\n
             Terminated by data: [DONE]\n\n
+  503 JSON {"detail": "..."} if Ollama is not running or the model is not pulled.
 """
 import json
 from typing import Optional
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import SQLModel
 
-from core.tutor import TutorContext, TutorMode, stream_response
+from config import settings
+from core.tutor import TutorContext, TutorMode, check_ollama_health, stream_response
 from database.db import get_session
 from models.meta import Meta
 from models.srs import ReviewLog, SRSCard
@@ -35,6 +37,19 @@ async def tutor_chat(
     payload: TutorRequest,
     db: AsyncSession = Depends(get_session),
 ) -> StreamingResponse:
+    # Fail fast with a clear 503 before opening the stream. Once streaming has
+    # started the status code is already 200 and cannot be changed.
+    if not await check_ollama_health():
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                f"AI tutor unavailable: Ollama is not running at {settings.ollama_base_url} "
+                f"or model '{settings.ollama_model}' is not pulled. "
+                f"With Docker: 'docker compose --profile ai up'. "
+                f"Without Docker: 'ollama serve', then 'ollama pull {settings.ollama_model}'."
+            ),
+        )
+
     ctx = await _build_context(db, payload.level)
     if payload.level:
         ctx.jlpt_level = payload.level

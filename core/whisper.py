@@ -1,8 +1,9 @@
 """
 core/whisper.py — Offline speech-to-text via OpenAI Whisper.
 
-Whisper is loaded once on startup (lazy) and used in-memory for transcription.
-This provides offline, private speech recognition without external API calls.
+Whisper is an OPTIONAL dependency (see requirements-speech.txt). It is imported
+lazily inside _get_model(), so the app starts and runs without it; the speech
+endpoint then returns HTTP 503. The model is loaded on first use and cached.
 
 Model: "base" (74MB)
   - Accuracy: ~74% WER
@@ -11,17 +12,17 @@ Model: "base" (74MB)
 """
 from __future__ import annotations
 
-import io
+import importlib.util
 import logging
-from typing import Optional
-
-import whisper
+import os
+import tempfile
+from typing import Any, Optional
 
 from config import settings
 
 logger = logging.getLogger(__name__)
 
-_model_cache: Optional[whisper.Whisper] = None
+_model_cache: Optional[Any] = None
 
 
 class WhisperError(RuntimeError):
@@ -58,11 +59,21 @@ async def transcribe_audio(audio_bytes: bytes, language: Optional[str] = None) -
             f"Check that torch and openai-whisper are installed. Error: {exc}"
         ) from exc
 
-    # Load audio from bytes
+    # Load audio from bytes via a temporary file.
     try:
-        audio = whisper.load_audio(io.BytesIO(audio_bytes))
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+            tmp.write(audio_bytes)
+            tmp_path = tmp.name
+
+        audio = _whisper_module().load_audio(tmp_path)
     except Exception as exc:
         raise WhisperError(f"Failed to load audio data: {exc}") from exc
+    finally:
+        if "tmp_path" in locals():
+            try:
+                os.unlink(tmp_path)
+            except OSError:
+                pass
 
     # Transcribe
     try:
@@ -94,18 +105,19 @@ async def transcribe_audio(audio_bytes: bytes, language: Optional[str] = None) -
 
 
 def check_whisper_available() -> bool:
-    """Return True if Whisper model can be loaded."""
-    try:
-        _get_model()
-        return True
-    except Exception:
-        return False
+    """
+    Return True if the openai-whisper package is installed.
+
+    Uses find_spec so the check is instant: it neither imports torch nor loads
+    (or downloads) the model, which keeps /api/health fast.
+    """
+    return importlib.util.find_spec("whisper") is not None
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-def _get_model() -> whisper.Whisper:
+def _get_model() -> Any:
     """
     Get or load the Whisper model (lazy singleton).
 
@@ -115,6 +127,8 @@ def _get_model() -> whisper.Whisper:
 
     if _model_cache is not None:
         return _model_cache
+
+    whisper = _whisper_module()
 
     logger.info(
         f"Loading Whisper model '{settings.whisper_model}' on device '{settings.whisper_device}'..."
@@ -129,6 +143,18 @@ def _get_model() -> whisper.Whisper:
     except Exception as exc:
         logger.error(f"Failed to load Whisper model: {exc}")
         raise
+
+
+def _whisper_module() -> Any:
+    """Import and return the whisper package, or raise WhisperError if missing."""
+    try:
+        import whisper
+    except ImportError as exc:
+        raise WhisperError(
+            "Speech-to-text is not installed. "
+            "Install it with: pip install -r requirements-speech.txt"
+        ) from exc
+    return whisper
 
 
 def _estimate_confidence(result: dict) -> float:

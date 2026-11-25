@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+import core.srs as srs_engine
 from database.db import get_session
 from models.srs import (
     ForecastDay,
@@ -12,11 +13,8 @@ from models.srs import (
     ProgressResponse,
     ReviewLog,
     SRSCard,
-    StudySession,
 )
 from models.vocab import JLPTLevel
-
-import core.srs as srs_engine
 
 router = APIRouter(prefix="/api/progress", tags=["progress"])
 

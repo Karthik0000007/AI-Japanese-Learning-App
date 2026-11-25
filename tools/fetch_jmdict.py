@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import gzip
 import json
-import os
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -29,7 +28,7 @@ def download_jmdict(force: bool = False) -> Path:
     if CACHE_GZ.exists() and not force:
         print(f"[JMdict] Using cached file: {CACHE_GZ}")
         return CACHE_GZ
-    print(f"[JMdict] Downloading from {JMDICT_URL} …")
+    print(f"[JMdict] Downloading from {JMDICT_URL} ...")
     urllib.request.urlretrieve(JMDICT_URL, CACHE_GZ)
     print(f"[JMdict] Saved to {CACHE_GZ} ({CACHE_GZ.stat().st_size / 1e6:.1f} MB)")
     return CACHE_GZ
@@ -45,7 +44,7 @@ def load_jlpt_overlay() -> dict[str, str]:
         return {}
     with open(JLPT_OVERLAY_PATH, encoding="utf-8") as f:
         raw = json.load(f)
-    # Normalise to "word|reading" → level
+    # Normalise to "word|reading" -> level
     overlay: dict[str, str] = {}
     for entry in raw:
         word = entry.get("word", "")
@@ -58,7 +57,7 @@ def load_jlpt_overlay() -> dict[str, str]:
 
 
 def parse_jmdict(gz_path: Path, overlay: dict[str, str]) -> list[dict[str, Any]]:
-    print("[JMdict] Parsing XML (this may take ~30 seconds)…")
+    print("[JMdict] Parsing XML (this may take ~30 seconds)...")
     entries: list[dict[str, Any]] = []
 
     with gzip.open(gz_path, "rb") as f:
@@ -106,15 +105,14 @@ def parse_jmdict(gz_path: Path, overlay: dict[str, str]) -> list[dict[str, Any]]
             "reading": reading,
             "meaning": meaning,
             "part_of_speech": part_of_speech,
-            "jlpt_level": level,
+            "jlpt_level": level if level else "N4",
             "example_jp": None,
             "example_en": None,
         })
 
-    # Keep only entries with a known JLPT level
-    tagged = [e for e in entries if e["jlpt_level"] in ("N5", "N4", "N3", "N2", "N1")]
-    print(f"[JMdict] Parsed {len(entries)} total entries; {len(tagged)} with JLPT level.")
-    return tagged
+    # Entries with JLPT levels are prioritized, but all entries are included
+    print(f"[JMdict] Parsed {len(entries)} total entries")
+    return entries
 
 
 def _clean_pos(raw: str) -> str:
@@ -139,7 +137,7 @@ def run(force_download: bool = False) -> list[dict[str, Any]]:
     OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(entries, f, ensure_ascii=False, indent=2)
-    print(f"[JMdict] Wrote {len(entries)} entries → {OUTPUT_JSON}")
+    print(f"[JMdict] Wrote {len(entries)} entries -> {OUTPUT_JSON}")
     return entries
 
 

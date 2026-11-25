@@ -1,8 +1,6 @@
 """tests/conftest.py — Shared async fixtures for the test suite."""
-import asyncio
 import os
 
-import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
@@ -10,6 +8,8 @@ from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel
 
 # ── Use a dedicated test database ────────────────────────────────────────────
+# Needs a running PostgreSQL with an existing, empty database. Override the URL
+# with TEST_DATABASE_URL (see "Running tests" in README.md).
 TEST_DB_URL = os.getenv(
     "TEST_DATABASE_URL",
     "postgresql+asyncpg://postgres:postgres@localhost:5432/jlpt_trainer_test",
@@ -20,8 +20,8 @@ os.environ.setdefault("OLLAMA_BASE_URL", "http://localhost:11434")
 os.environ.setdefault("PIPER_BINARY", "piper")
 
 # Import app after env vars are set
-from main import app
-from database.db import get_session
+from database.db import get_session  # noqa: E402
+from main import app  # noqa: E402
 
 test_engine = create_async_engine(TEST_DB_URL, echo=False)
 TestingSession = sessionmaker(test_engine, class_=AsyncSession, expire_on_commit=False)
@@ -54,3 +54,12 @@ async def client(session):
     async with AsyncClient(transport=transport, base_url="http://test") as c:
         yield c
     app.dependency_overrides.clear()
+
+
+@pytest_asyncio.fixture()
+async def db_conn(create_test_tables):
+    """A raw connection inside a transaction that is rolled back after the test."""
+    async with test_engine.connect() as conn:
+        trans = await conn.begin()
+        yield conn
+        await trans.rollback()

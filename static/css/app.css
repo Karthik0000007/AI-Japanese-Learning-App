@@ -263,3 +263,22 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 @media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+/* ── Optional-service banner (static/js/utils/health.js) ── */
+.service-banner {
+  border: 1px solid var(--warn);
+  border-left-width: 4px;
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+}
+.service-banner-row + .service-banner-row { margin-top: 0.35rem; }
+.service-banner code {
+  background: var(--border);
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  user-select: all;
+}
+button:disabled { opacity: 0.4; cursor: not-allowed; }

@@ -9,14 +9,14 @@ Endpoints:
   PATCH /api/cards/sessions/{id} — close a study session
 """
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import core.srs as srs_engine
 from database.db import get_session
-from models.kanji import Kanji, KanjiResponse
+from models.kanji import Kanji
 from models.srs import (
     ItemType,
     ReviewRequest,
@@ -24,7 +24,7 @@ from models.srs import (
     SessionStartResponse,
     StudySession,
 )
-from models.vocab import JLPTLevel, Vocab, VocabResponse
+from models.vocab import JLPTLevel, Vocab
 
 router = APIRouter(prefix="/api/cards", tags=["cards"])
 
@@ -39,7 +39,11 @@ async def get_due_cards(
     db: AsyncSession = Depends(get_session),
 ) -> list[dict]:
     cards = await srs_engine.get_due_cards(db, level, type, limit)
-    return [_card_with_item(c) for c in cards]
+    result = []
+    for card in cards:
+        item = await _load_item_for_card(db, card)
+        result.append(_item_with_card(item, card, card.item_type))
+    return result
 
 
 # ─── GET new items ────────────────────────────────────────────────────────────
@@ -135,6 +139,21 @@ def _card_with_item(card) -> dict:
         "reps": card.reps,
         "due_date": card.due_date.isoformat(),
     }
+
+
+async def _load_item_for_card(db: AsyncSession, card):
+    if card.item_type == ItemType.vocab:
+        item = await db.get(Vocab, card.item_id)
+    else:
+        item = await db.get(Kanji, card.item_id)
+
+    if item is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Study item not found for card {card.id}.",
+        )
+
+    return item
 
 
 def _item_with_card(item, card, item_type: ItemType) -> dict:

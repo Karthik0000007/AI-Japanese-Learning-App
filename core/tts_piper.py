@@ -1,42 +1,47 @@
 """
-core/tts_piper.py — Offline Japanese text-to-speech via Piper TTS.
+core/tts_piper.py - Japanese text-to-speech helpers used by /api/tts.
 
-Piper is invoked as a subprocess: text is written to stdin, WAV audio bytes
-are read from stdout.  This avoids the overhead of a persistent process while
-keeping the FastAPI event loop non-blocking (asyncio.subprocess).
+Despite the historical module name, the working synthesis path for this app is
+currently based on pyopenjtalk, which provides reliable offline Japanese speech
+generation for kana/kanji input.
 
-Voice model: ja_JP-kokoro-medium.onnx  (~80 MB)
-  Download: https://huggingface.co/rhasspy/piper-voices/tree/main/ja/ja_JP/kokoro/medium
+TTS is an OPTIONAL feature (see requirements-speech.txt). pyopenjtalk, numpy and
+scipy are imported lazily inside the functions that need them, so the app starts
+without them; the TTS endpoint then returns HTTP 503.
 """
 from __future__ import annotations
 
-import asyncio
-import os
-import shutil
+import importlib.util
+import io
+import logging
 from pathlib import Path
+from typing import Any
 
-from config import settings
+import anyio
 
-MAX_TEXT_LENGTH = 500  # Characters — enforced before spawning subprocess
+from core.language_detect import has_japanese
+
+MAX_TEXT_LENGTH = 500
+PROJECT_DICT_DIR = Path("data") / "open_jtalk_dic_utf_8-1.11"
+TTS_PACKAGES = ("pyopenjtalk", "numpy", "scipy")
+TTS_NOT_INSTALLED = (
+    "Text-to-speech is not installed. "
+    "Install it with: pip install -r requirements-speech.txt"
+)
+
+logger = logging.getLogger(__name__)
 
 
 class TTSError(RuntimeError):
-    """Raised when Piper fails or is not available."""
+    """Raised when TTS fails or is not available."""
 
 
 async def synthesize(text: str) -> bytes:
     """
-    Convert *text* to WAV audio bytes using the Piper TTS subprocess.
+    Convert Japanese text to WAV audio bytes.
 
-    Args:
-        text: Japanese (or any supported) text to synthesize.
-
-    Returns:
-        Raw WAV file bytes suitable for an audio/wav HTTP response.
-
-    Raises:
-        TTSError: If Piper binary is missing, text is too long, or Piper exits non-zero.
-        ValueError: If text is empty.
+    The app primarily synthesizes Japanese readings and kanji pronunciations, so
+    we require Japanese characters and use pyopenjtalk for stable offline speech.
     """
     text = text.strip()
     if not text:
@@ -45,89 +50,94 @@ async def synthesize(text: str) -> bytes:
         raise TTSError(
             f"Text length {len(text)} exceeds maximum {MAX_TEXT_LENGTH} characters."
         )
+    if not has_japanese(text):
+        raise TTSError("TTS currently supports Japanese text only.")
 
-    binary = _resolve_binary()
-    model_path = _resolve_model()
-
-    cmd = [
-        binary,
-        "--model", str(model_path),
-        "--output_raw",  # PCM output — we add the WAV header ourselves
-        "--output-raw",  # some versions use hyphens
-    ]
-
-    # Use --output_file - to write WAV to stdout (Piper >= 1.2)
-    cmd = [
-        binary,
-        "--model", str(model_path),
-        "--output_file", "-",
-    ]
+    pyopenjtalk = _pyopenjtalk_module()
+    _configure_openjtalk_dict(pyopenjtalk)
 
     try:
-        proc = await asyncio.create_subprocess_exec(
-            *cmd,
-            stdin=asyncio.subprocess.PIPE,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
+        pcm_data, sample_rate = await anyio.to_thread.run_sync(
+            lambda: pyopenjtalk.tts(text, speed=1.0)
         )
-        stdout_data, stderr_data = await proc.communicate(input=text.encode("utf-8"))
-    except FileNotFoundError:
-        raise TTSError(
-            f"Piper binary not found: '{binary}'. "
-            "Install it and set PIPER_BINARY in .env, or run: python tools/setup.py"
-        )
+        return _pcm_to_wav(pcm_data, sample_rate)
     except Exception as exc:
-        raise TTSError(f"Failed to run Piper subprocess: {exc}") from exc
+        raise TTSError(f"Japanese TTS synthesis failed: {exc}") from exc
 
-    if proc.returncode != 0:
-        stderr_text = stderr_data.decode("utf-8", errors="replace").strip()
-        raise TTSError(
-            f"Piper exited with code {proc.returncode}. Stderr: {stderr_text}"
-        )
 
-    if not stdout_data:
-        raise TTSError("Piper produced no audio output.")
-
-    return stdout_data
+def check_tts_installed() -> bool:
+    """Return True if the TTS packages are installed (instant, imports nothing)."""
+    return all(importlib.util.find_spec(name) is not None for name in TTS_PACKAGES)
 
 
 def check_piper_available() -> bool:
-    """Return True if both the Piper binary and model file exist."""
-    try:
-        _resolve_binary()
-        _resolve_model()
-        return True
-    except TTSError:
+    """
+    Backward-compatible health check for the app's TTS status indicator.
+
+    Historically this checked Piper assets. The current working path is
+    pyopenjtalk-based, so availability means the packages are installed and an
+    OpenJTalk dictionary is already present (in data/ or inside the package).
+    """
+    if not check_tts_installed():
         return False
 
+    if PROJECT_DICT_DIR.exists():
+        return True
 
-# ─── Private helpers ──────────────────────────────────────────────────────────
-
-def _resolve_binary() -> str:
-    """Return the Piper binary path, raising TTSError if not found."""
-    binary = settings.piper_binary
-    # If it's just "piper", check PATH
-    if not os.path.isabs(binary):
-        found = shutil.which(binary)
-        if found:
-            return found
-        raise TTSError(
-            f"Piper binary '{binary}' not found in PATH. "
-            "Set PIPER_BINARY in .env to the absolute path."
-        )
-    if not Path(binary).exists():
-        raise TTSError(f"Piper binary not found at configured path: {binary}")
-    return binary
+    package_dict = _get_package_openjtalk_dict_dir()
+    return package_dict is not None and package_dict.exists()
 
 
-def _resolve_model() -> Path:
-    """Return the resolved model path, raising TTSError if not found."""
-    model = Path(settings.piper_model_path)
-    if not model.is_absolute():
-        model = Path.cwd() / model
-    if not model.exists():
-        raise TTSError(
-            f"Piper voice model not found: {model}. "
-            "Run: python tools/setup.py  (downloads the model automatically)"
-        )
-    return model
+def _pyopenjtalk_module() -> Any:
+    """Import and return pyopenjtalk, or raise TTSError if TTS is not installed."""
+    if not check_tts_installed():
+        raise TTSError(TTS_NOT_INSTALLED)
+    import pyopenjtalk
+
+    return pyopenjtalk
+
+
+def _configure_openjtalk_dict(pyopenjtalk: Any) -> None:
+    """Point pyopenjtalk at a usable dictionary directory when one exists."""
+    if PROJECT_DICT_DIR.exists():
+        pyopenjtalk.OPEN_JTALK_DICT_DIR = str(PROJECT_DICT_DIR).encode("utf-8")
+        return
+
+    package_dict = _get_package_openjtalk_dict_dir()
+    if package_dict is not None and package_dict.exists():
+        pyopenjtalk.OPEN_JTALK_DICT_DIR = str(package_dict).encode("utf-8")
+        return
+
+    logger.info("OpenJTalk dictionary not found in project cache; pyopenjtalk will bootstrap it on first use.")
+
+
+def _get_package_openjtalk_dict_dir() -> Path | None:
+    """Locate the dictionary bundled inside the pyopenjtalk package, without importing it."""
+    spec = importlib.util.find_spec("pyopenjtalk")
+    if spec is None or not spec.submodule_search_locations:
+        return None
+
+    package_dir = Path(list(spec.submodule_search_locations)[0]).resolve()
+    return package_dir / "open_jtalk_dic_utf_8-1.11"
+
+
+def _pcm_to_wav(pcm_data: Any, sample_rate: int) -> bytes:
+    """Convert float/int PCM audio to WAV bytes."""
+    import numpy as np
+    from scipy.io import wavfile
+
+    pcm = np.asarray(pcm_data)
+
+    if np.issubdtype(pcm.dtype, np.floating):
+        max_abs = float(np.max(np.abs(pcm))) if pcm.size else 0.0
+        if max_abs > 1.0:
+            pcm = pcm / max_abs
+        pcm = np.clip(pcm, -1.0, 1.0)
+        pcm = (pcm * 32767).astype(np.int16)
+    else:
+        pcm = pcm.astype(np.int16)
+
+    wav_buffer = io.BytesIO()
+    wavfile.write(wav_buffer, sample_rate, pcm)
+    wav_buffer.seek(0)
+    return wav_buffer.read()

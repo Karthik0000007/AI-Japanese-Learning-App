@@ -35,9 +35,12 @@ psycopg2-binary    = ">=2.9.9"
 # HTTP (Ollama streaming)
 httpx              = ">=0.27.0"
 
-# Speech & Audio (Whisper STT)
+# Speech & Audio (Whisper STT + Kokoro ONNX TTS)
 torch              = ">=2.0.0"
 openai-whisper     = ">=20231117"
+onnxruntime        = ">=1.16.0"
+scipy              = ">=1.10.0"
+pyopenjtalk        = ">=0.4.1"
 
 # Settings
 pydantic-settings  = ">=2.2.1"

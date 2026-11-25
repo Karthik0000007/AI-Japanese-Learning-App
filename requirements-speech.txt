@@ -1,0 +1,12 @@
+# Optional speech features. The app starts and works without these;
+# the speech and TTS endpoints return HTTP 503 until they are installed.
+#   pip install -r requirements.txt -r requirements-speech.txt
+
+# Speech-to-text (Whisper). torch is large; CPU-only wheels are enough.
+openai-whisper>=20231117
+torch>=2.0.0
+
+# Japanese text-to-speech (pyopenjtalk) and WAV encoding
+pyopenjtalk>=0.4.1
+numpy>=1.26.0
+scipy>=1.10.0
